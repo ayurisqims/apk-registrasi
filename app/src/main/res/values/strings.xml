@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">apk_registrasi</string>
+    <string name="download">Download</string>
+    <string name="data">Data Kelompok</string>
+    <string name="upload">Upload</string>
+
+    <!--BUTTOM NAVIGATION-->
+    <string name="title_activity_button_nav">button_nav</string>
+    <string name="title_data">Data</string>
+    <string name="title_download">Download</string>
+    <string name="title_upload">Upload</string>
+    <string name="title_logout">Logout</string>
+
+
+    <!--    Nama Kolom Registrasi-->
+    <string name="universitas">Universitas </string>
+    <string name="fakultas">Fakultas </string>
+    <string name="prodi">Prodi </string>
+    <string name="alamat">Alamat Universitas </string>
+    <string name="jumlah">Jumlah Anggota </string>
+    <string name="kel">Kelompok</string>
+    <string name="periodM">Periode Mulai</string>
+    <string name="periodA">Periode Akhir</string>
+    <string name="ketua">Nama Ketua Kelompok</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!--    Data Anggota-->
+    <string name="nama">Nama</string>
+    <string name="NIM">NIM</string>
+    <string name="jk">Jenis Kelamin</string>
+    <string name="no">No Telp</string>
+    <string name="emailA">Email</string>
+    <string name="sosmed">Sosial Media</string>
+    <string name="alamatA">Alamat</string>
+</resources>

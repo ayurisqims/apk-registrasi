@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/kode"
+    tools:context=".Regist_anggota">
+
+    <TextView
+        android:id="@+id/judul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="REGISTRASI ANGGOTA KELOMPOK"
+        android:textColor="@color/kode"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="403dp"
+        android:layout_height="665dp"
+        android:layout_marginTop="52dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="441dp"
+            android:layout_height="643dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="386dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/nama"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.327"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan Nama Anggota"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="386dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/NIM"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.315"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+            <EditText
+                android:id="@+id/editText10"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan NIM"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="277dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/jk"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.097"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText10" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="247dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/no"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.082"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+            <EditText
+                android:id="@+id/editText9"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan No.Telp / HP"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="261dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/emailA"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.088"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText9" />
+
+            <EditText
+                android:id="@+id/editText7"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan Email"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="285dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/sosmed"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.102"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText7" />
+
+            <EditText
+                android:id="@+id/editText4"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:hint="Sosial Media"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="269dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/alamatA"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.093"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText4"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/editText3"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan Alamat Lengkap"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="269dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:text="Bidang Minat"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.093"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+            <Spinner
+                android:id="@+id/spinnerBM"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.197"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="246dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="4dp"
+                android:text="Keahlian"
+                android:textColor="@color/colorText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.082"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerBM" />
+
+            <EditText
+                android:id="@+id/editText2"
+                style="@style/styleEditText"
+                android:layout_width="360dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/button1"
+                android:hint="Keahlian"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.202"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <Button
+                android:id="@+id/btnTambah"
+                android:layout_width="78dp"
+                android:layout_height="59dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button2"
+                android:text="+"
+                android:textAllCaps="false"
+                android:textColor="@color/kode"
+                android:textSize="60sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

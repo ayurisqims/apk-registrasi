@@ -1,0 +1,43 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#1E60AC </item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#040404</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="styleEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#080808</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">#ffff</item>
+    </style>
+
+    <style name="styleButtonText">
+        <item name="android:layout_width">357dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">#ffff</item>
+    </style>
+
+    <style name="styleTglText">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">#ffff</item>
+    </style>
+
+</resources>

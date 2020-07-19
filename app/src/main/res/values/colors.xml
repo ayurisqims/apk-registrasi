@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1E60AC </color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#040404</color>
+    <color name="Hitam">#000000</color>
+    <color name="putih">#FFFFFF</color>
+    <color name="blue">#3214DBF3</color>
+    <color name="kreasi">#EE893B</color>
+    <color name="kode">#1E60AC</color>
+    <color name="colorText">#292929</color>
+</resources>

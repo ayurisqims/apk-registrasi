@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.apk_registrasi">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logokreasi"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Upload"
+            android:label="@string/upload"/>
+        <activity android:name=".Download"
+            android:label="@string/download"/>
+        <activity android:name=".Data_anggota" />
+        <activity android:name=".Data_kel"
+            android:label="@string/data"/>
+        <activity android:name=".Regist_anggota"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Regist_kel"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Splash"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
