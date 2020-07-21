@@ -54,6 +54,7 @@
             android:layout_height="274dp">
 
             <TextView
+                android:id="@+id/txtemail"
                 android:layout_width="283dp"
                 android:layout_height="26dp"
                 android:layout_marginTop="28dp"
@@ -66,22 +67,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/txtInputEmail"
-                android:inputType="textEmailAddress"
-                style="@style/styleEditText"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutEmail"
                 android:layout_width="365dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="56dp"
-                android:background="@drawable/button1"
-                android:hint="Masukkan Username"
-                android:paddingLeft="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/txtPassword"
                 android:layout_width="283dp"
                 android:layout_height="26dp"
                 android:layout_marginTop="116dp"
@@ -94,20 +94,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-         <EditText
-                android:id="@+id/txtInputPassword"
-                android:inputType="textPassword"
-                style="@style/styleEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutPassword"
                 android:layout_width="365dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="136dp"
-                android:background="@drawable/button1"
-                android:hint="Masukkan Password"
-                android:paddingLeft="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.347"
+                app:layout_constraintHorizontal_bias="0.733"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnLogin"
@@ -140,6 +137,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.829" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/InputEmail"
+                style="@style/styleEditText"
+                android:layout_width="365dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan Username"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/InputPassword"
+                style="@style/styleEditText"
+                android:layout_width="365dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="140dp"
+                android:background="@drawable/button1"
+                android:hint="Masukkan Password"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.733"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.google.android.material.textfield.TextInputEditText>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
