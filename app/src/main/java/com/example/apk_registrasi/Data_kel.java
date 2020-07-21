@@ -9,17 +9,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Data_kel extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_kel);
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_nav);
         bottomNavigationView.setSelectedItemId(R.id.navigation_data);
@@ -54,6 +55,7 @@ public class Data_kel extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

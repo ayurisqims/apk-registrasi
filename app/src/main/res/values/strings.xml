@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">apk_registrasi</string>
+    <string name="app_namee">apk_registrasi</string>
     <string name="download">Download</string>
     <string name="data">Data Kelompok</string>
     <string name="upload">Upload</string>
@@ -23,7 +23,6 @@
     <string name="periodA">Periode Akhir</string>
     <string name="ketua">Nama Ketua Kelompok</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
 
     <!--    Data Anggota-->
     <string name="nama">Nama</string>
@@ -33,4 +32,21 @@
     <string name="emailA">Email</string>
     <string name="sosmed">Sosial Media</string>
     <string name="alamatA">Alamat</string>
+
+    <!--SPINNER-->
+    <string name="app_name">pendaftaran</string>
+    <string-array name="JenisKelamin">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <!--SPINNER BIDANG MINAT-->
+    <string name="app_name_bm">Bidang Minat</string>
+    <string-array name="BidangMinat">
+        <item>UI/UX</item>
+        <item>Android</item>
+        <item>Web Progaming</item>
+        <item>Frontend</item>
+        <item>Developmen</item>
+    </string-array>
 </resources>
