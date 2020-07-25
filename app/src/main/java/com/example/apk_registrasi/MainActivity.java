@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextInputEditText txtEmail, txtPassword;
     TextInputLayout layoutEmail, layoutPassword;
-    private String URL_LOGIN = "http://192.168.1.6:80/api/login/";
+    private String URL_LOGIN = "http://192.168.1.9:80/api/login/";
 
 
     @Override
@@ -116,13 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validate() {
         if (txtEmail.getText().toString().isEmpty()) {
-            layoutEmail.setEnabled(true);
-            layoutEmail.setError("Masukkan Email");
+            txtEmail.setError("Masukkan Email");
             return false;
         }
         if (txtPassword.getText().toString().length() < 8) {
-            layoutPassword.setEnabled(true);
-            layoutPassword.setError("Masukkan Password 8 Karakter");
+            txtPassword.setError("Masukkan Password 8 Karakter");
             return false;
         }
         return true;
@@ -130,36 +128,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void Login() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN, response -> {
 
+            try {
+                JSONObject object = new JSONObject(response);
 
-            @Override
-            public void onResponse(String response) {
+                if (object.getBoolean("success")) {
+                    JSONObject user = object.getJSONObject("user");
 
-                try {
-                    JSONObject object = new JSONObject(response);
+                    SharedPreferences userPref = getApplicationContext().getSharedPreferences
+                            ("user", MainActivity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = userPref.edit();
+                    editor.putString("token", object.getString("token"));
+                    editor.putString("email", user.getString("email"));
+                    editor.apply();
 
-                    if (object.getBoolean("success")) {
-                        JSONObject user = object.getJSONObject("user");
-
-                        SharedPreferences userPref = getApplicationContext().getSharedPreferences("user", MainActivity.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = userPref.edit();
-                        editor.putString("token", object.getString("token"));
-                        editor.putString("email", user.getString("email"));
-                        editor.apply();
-
-                        Toast.makeText(MainActivity.this, "Login Berhasil ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, Data_kel.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Nama dan Password Salah", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Password atau Nama Salah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Login Berhasil ",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, Data_kel.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Username atau password salah",
+                            Toast.LENGTH_SHORT).show();
                 }
-                }
-            }, error -> Toast.makeText(MainActivity.this, "Error" +error.toString(), Toast.LENGTH_SHORT).show()) {
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            }, error -> Toast.makeText(MainActivity.this, "Error" +error.toString(),
+                Toast.LENGTH_SHORT).show()) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
