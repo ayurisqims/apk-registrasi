@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class Download extends AppCompatActivity {
 
-    MaterialToolbar toolbar;
     SharedPreferences preferences;
     private String URL_LOGOUT = "http://192.168.1.9:80/api/logout/";
 
@@ -125,8 +124,6 @@ public class Download extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-//        startActivity(new Intent(Download.this, MainActivity.class)
-//                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-//        finish();
+
     }
 }

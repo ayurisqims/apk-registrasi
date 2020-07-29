@@ -1,9 +1,12 @@
 package com.example.apk_registrasi;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +14,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Data_kel extends AppCompatActivity {
 
-
+    SharedPreferences preferences;
+    private String URL_LOGOUT = "http://192.168.1.9:80/api/logout/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +82,59 @@ public class Data_kel extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch ( (item.getItemId())) {
-            case R.id.logout:
-                logout();
-            return true;
+        switch ((item.getItemId())) {
+            case R.id.logout: {
 
-            default: 
-                return super.onOptionsItemSelected(item);
+                AlertDialog.Builder alertDialogBuilder = new  AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Apakah anda ingin keluar?");
+                alertDialogBuilder.setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logout();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialogBuilder.show();
+            }
+
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
-        startActivity(new Intent(Data_kel.this, MainActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-        finish();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
+
+            try {
+                JSONObject object = new JSONObject(response);
+                if (object.getBoolean("success")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(Data_kel.this, MainActivity.class));
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            error.printStackTrace();
+        }) {
+
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = preferences.getString("token", "");
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Authorization", "Bearer" +token);
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
 }
