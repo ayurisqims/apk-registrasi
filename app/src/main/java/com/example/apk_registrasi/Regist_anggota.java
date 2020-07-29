@@ -33,12 +33,14 @@ public class Regist_anggota extends AppCompatActivity {
         container = findViewById(R.id.constraint);
 
         Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.JenisKelamin, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.JenisKelamin, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         Spinner spinnerr = findViewById(R.id.spinnerBM);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.BidangMinat, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.BidangMinat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerr.setAdapter(adapter1);
 
@@ -46,7 +48,8 @@ public class Regist_anggota extends AppCompatActivity {
 
     private void addEditText(ConstraintLayout container){
         EditText editText = new EditText(container.getContext());
-        editText.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+        editText.setLayoutParams(new ConstraintLayout.LayoutParams
+                (ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
 
     }
 

@@ -17,6 +17,7 @@
         <activity android:name=".Upload"
             android:label="@string/upload"/>
         <activity android:name=".Download"
+            android:theme="@style/AppTheme"
             android:label="@string/download"/>
         <activity android:name=".Data_anggota" />
         <activity android:name=".Data_kel"

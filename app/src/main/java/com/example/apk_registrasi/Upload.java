@@ -46,4 +46,23 @@ public class Upload extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.buttom_logout, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch ( (item.getItemId())) {
+            case R.id.logout:
+                logout();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void logout() {
+        startActivity(new Intent(Upload.this, MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
+    }
 }

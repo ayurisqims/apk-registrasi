@@ -7,6 +7,10 @@
         <item name="colorAccent">#040404</item>
     </style>
 
+    <style name="AppFullScreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
