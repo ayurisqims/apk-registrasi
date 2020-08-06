@@ -28,7 +28,7 @@ import java.util.Map;
 public class Upload extends AppCompatActivity {
 
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.1.9:80/api/logout/";
+    private String URL_LOGOUT = "http://192.168.1.8:80/api/logout/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
