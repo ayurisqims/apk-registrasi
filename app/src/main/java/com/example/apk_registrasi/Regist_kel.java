@@ -17,10 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,12 +38,16 @@ public class Regist_kel extends AppCompatActivity {
     private static final String TAG = "Regist_kel";
     private TextView mDisplayDate, mDisplayDate1;
     private DatePickerDialog.OnDateSetListener mDateSetListener, mDateSetListener1;
+    private RequestQueue mQueue;
 
+    SharedPreferences sp;
+    String univ, fakultas, prodi, alamat, jumlah, kelompok, NK, email, password;
     TextInputEditText txtUniv, txtFakultas, txtProdi, txtAlamat,
             txtJumlah, txtKelompok, txtNK, txtEmail, txtPassword;
-    TextView periodeMulai, periodeAkhir;
+    TextView txtHasil, periodeMulai,periodeAkhir;
 
-    private static String URL_REGIST = "http://192.168.1.8:80/api/register";
+    private static String URL_REGIST = "http://192.168.100.174:80/api/register";
+    private static String URL_DATA_KEL = "http://192.168.100.174:80/api/data";
 
 
     @Override
@@ -60,7 +69,7 @@ public class Regist_kel extends AppCompatActivity {
                     Regist_kel.this,
                     android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     mDateSetListener,
-                    year,month,day);
+                    year, month, day);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
@@ -85,7 +94,7 @@ public class Regist_kel extends AppCompatActivity {
                     Regist_kel.this,
                     android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     mDateSetListener1,
-                    year,month,day);
+                    year, month, day);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
@@ -101,9 +110,10 @@ public class Regist_kel extends AppCompatActivity {
 
     }
 
+
     private void initRegister() {
 
-
+        txtHasil = findViewById(R.id.txtHasil);
         txtUniv = findViewById(R.id.inputUniv);
         txtFakultas = findViewById(R.id.inputFakultas);
         txtProdi = findViewById(R.id.inputProdi);
@@ -116,17 +126,72 @@ public class Regist_kel extends AppCompatActivity {
         periodeMulai = findViewById(R.id.txtPeriodM);
         periodeAkhir = findViewById(R.id.txtPerioA);
 
-        Button tambah = findViewById(R.id.btnTambah);
-        tambah.setOnClickListener(new View.OnClickListener() {
+        Button submit = findViewById(R.id.btnSubmit);
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                if (validate()){
                    Registrasi();
+//                   jsonParse();
                }
             }
         });
 
+//        Button submit = findViewById(R.id.btnSubmit);
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                univ = txtUniv.getText().toString();
+//                fakultas = txtFakultas.getText().toString();
+//                prodi = txtProdi.getText().toString();
+//                alamat = txtAlamat.getText().toString();
+//                jumlah = txtJumlah.getText().toString();
+//                kelompok = txtKelompok.getText().toString();
+//                NK = txtNK.getText().toString();
+//                email = txtEmail.getText().toString();
+//                password = txtPassword.getText().toString();
+//
+//
+//            }
+//        });
+
     }
+
+//    private void jsonParse() {
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_DATA_KEL, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            JSONArray jsonArray = response.getJSONArray("data");
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject data = jsonArray.getJSONObject(i);
+//
+//                                String universitas = data.getString("universitas");
+//                                String fakultas = data.getString("fakultas");
+//                                String prodi = data.getString("prodi");
+//                                String alamat_univ = data.getString("alamat_univ");
+//                                String kelompok = data.getString("kelompok");
+//                                String jumlah_anggota = data.getString("jumlah_anggota");
+//                                String nama_ketua = data.getString("nama_ketua");
+//
+//                                txtHasil.append(universitas + "\n \n" + fakultas + "\n \n " + prodi + "\n \n");
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//
+//        mQueue.add(request);
+//    }
+
+
 
     private boolean validate(){
 
@@ -197,7 +262,7 @@ public class Regist_kel extends AppCompatActivity {
 
                     Toast.makeText(Regist_kel.this, "Registrasi Berhasil ",
                             Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Regist_kel.this, Regist_anggota.class);
+                    Intent intent = new Intent(Regist_kel.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(Regist_kel.this, "Data yang dimasukan salah",
@@ -229,5 +294,7 @@ public class Regist_kel extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-}
+
+    }
+
 

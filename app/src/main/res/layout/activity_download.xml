@@ -47,10 +47,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/form"
-                android:layout_width="385dp"
-                android:layout_height="396dp"
+                android:layout_width="380dp"
+                android:layout_height="365dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="150dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp"
@@ -59,72 +59,75 @@
 
                 <LinearLayout
                     android:layout_width="358dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="355dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/putih"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/styleEditText"
+                    <Button
+                        android:id="@+id/webProgramming"
+                        style="@style/styleButtonPDF"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
                         android:padding="20dp"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="10dp"
                         android:paddingTop="15dp"
                         android:text="1. Web Programming.pdf"
                         android:textColor="@color/Hitam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/UI"
                         style="@style/styleEditText"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
                         android:padding="20dp"
-                        android:paddingLeft="30dp"
-                        android:paddingTop="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="50dp"
                         android:text="2. UI/UX.pdf"
                         android:textColor="@color/Hitam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
-                        style="@style/styleEditText"
+                        android:id="@+id/frontend"
+                        style="@style/styleButtonPDF"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
                         android:padding="20dp"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="10dp"
                         android:paddingTop="15dp"
                         android:text="3. Frontend.pdf"
                         android:textColor="@color/Hitam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
-                        style="@style/styleEditText"
+                        android:id="@+id/database"
+                        style="@style/styleButtonPDF"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
                         android:padding="20dp"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="10dp"
                         android:paddingTop="15dp"
                         android:text="4. Database.pdf"
                         android:textColor="@color/Hitam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
-                        style="@style/styleEditText"
-                        android:layout_width="342dp"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/webDev"
+                        style="@style/styleButtonPDF"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
                         android:padding="20dp"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="10dp"
                         android:paddingTop="15dp"
-                        android:text="5. WebDeveloper.pdf"
+                        android:text="5. Web Developer"
                         android:textColor="@color/Hitam"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

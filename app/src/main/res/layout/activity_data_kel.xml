@@ -62,7 +62,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txtUniv"
+                        android:id="@+id/txtHasil"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -163,26 +163,27 @@
 
                         <Button
                             android:id="@+id/btnEdit"
-                            android:layout_width="match_parent"
+                            android:layout_width="176dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/button2"
-                            android:text="Edit"
-                            android:textSize="21sp"
+                            android:text="Edit Data"
                             android:textAllCaps="false"
-                            android:textColor="@color/kode"/>
+                            android:textColor="@color/kode"
+                            android:textSize="15sp" />
+
                         <Button
-                            android:id="@+id/btnDetail"
+                            android:id="@+id/btnTambah"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/button2"
-                            android:text="Detail Anggota"
-                            android:textSize="21sp"
+                            android:text="Tambah Anggota Kelompok"
+                            android:textSize="15sp"
                             android:textAllCaps="false"
                             android:textColor="@color/kode"/>
                     </LinearLayout>

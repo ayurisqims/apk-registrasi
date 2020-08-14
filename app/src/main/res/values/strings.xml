@@ -34,19 +34,17 @@
     <string name="alamatA">Alamat</string>
 
     <!--SPINNER-->
-    <string name="app_name">pendaftaran</string>
     <string-array name="JenisKelamin">
         <item>Laki-laki</item>
         <item>Perempuan</item>
     </string-array>
 
     <!--SPINNER BIDANG MINAT-->
-    <string name="app_name_bm">Bidang Minat</string>
     <string-array name="BidangMinat">
         <item>UI/UX</item>
-        <item>Android</item>
+        <item>Android Developer</item>
         <item>Web Progaming</item>
         <item>Frontend</item>
-        <item>Developmen</item>
+        <item>Database</item>
     </string-array>
 </resources>

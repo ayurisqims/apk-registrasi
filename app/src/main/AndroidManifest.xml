@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.apk_registrasi">
-
-    <!--  Internet Permissions -->
+    <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/logokreasi"
-        android:label="@string/app_name"
+        android:label="Registrasi"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:configChanges="orientation|screenSize"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Upload"
-            android:theme="@style/AppTheme"
-            android:label="@string/upload"/>
-        <activity android:name=".Download"
-            android:theme="@style/AppTheme"
-            android:label="@string/download"/>
+        <activity
+            android:name=".Upload"
+            android:label="@string/upload"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Download"
+            android:label="@string/download"
+            android:theme="@style/AppTheme" />
         <activity android:name=".Data_anggota" />
-        <activity android:name=".Data_kel"
-            android:theme="@style/AppTheme"
-            android:label="@string/data"/>
-        <activity android:name=".Regist_anggota"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Regist_kel"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Data_kel"
+            android:label="@string/data"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Regist_anggota"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Regist_kel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Splash"
             android:theme="@style/AppTheme.NoActionBar">
