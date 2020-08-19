@@ -50,7 +50,7 @@
                 android:layout_width="380dp"
                 android:layout_height="365dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp"
@@ -64,9 +64,9 @@
                     android:background="@color/putih"
                     android:orientation="vertical">
 
-                    <Button
+                    <TextView
                         android:id="@+id/webProgramming"
-                        style="@style/styleButtonPDF"
+                        style="@style/styleEditText"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/button2"
