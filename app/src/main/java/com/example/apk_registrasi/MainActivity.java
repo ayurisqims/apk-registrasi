@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextInputEditText txtEmail, txtPassword;
     TextInputLayout layoutEmail, layoutPassword;
-    private String URL_LOGIN = "http://192.168.100.174:80/api/login/";
+    private String URL_LOGIN = "http://192.168.43.209:80/api/login/";
 
 
     @Override
@@ -124,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void onBackPressed() {
+        //do nothing
     }
 
     private void Login() {

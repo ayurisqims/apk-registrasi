@@ -47,7 +47,7 @@ public class Download extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
     DownloadManager downloadManager;
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.100.174:8/api/logout/";
+    private String URL_LOGOUT = "http://192.168.43.209:80 /api/logout/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +61,7 @@ public class Download extends AppCompatActivity {
         webProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                isExternalStorageWritable();
-
+                
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                             PackageManager.PERMISSION_DENIED) {
@@ -71,10 +69,10 @@ public class Download extends AppCompatActivity {
                         requestPermissions(permissions, PERMISSION_STORAGE_CODE);
                         
                     } else {
-                        startDownload();
+                        webProgramming();
                     }
                 } else {
-                    startDownload();
+                    webProgramming();
                 }
 
             }
@@ -84,11 +82,18 @@ public class Download extends AppCompatActivity {
         ui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri uri = Uri.parse("http://informatika.uin-malang.ac.id/wp-content/uploads/2019/04/Modul-prak-Web-programming.pdf");
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Long reference = downloadManager.enqueue(request);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
+
+                    } else {
+                        ui();
+                    }
+                } else {
+                    ui();
+                }
 
             }
         });
@@ -156,20 +161,37 @@ public class Download extends AppCompatActivity {
         });
     }
 
-    private void isExternalStorageWritable() {
+    private void ui() {
+        String link = "http://192.168.100.174/data_soal/UX.pdf";
+        Uri uri = Uri.parse(link);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("UI/UX");
 
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        try{
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"UI/UX.pdf");
+
+            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager.enqueue(request);
+            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
+        } catch(Exception e) {
+            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void startDownload() {
+
+    private void webProgramming() {
 
         String link = "http://192.168.100.174/data_soal/Web%20Programming.pdf";
         Uri uri = Uri.parse(link);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("WebProgramming");
-
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                DownloadManager.Request.NETWORK_MOBILE)
+                .setTitle("WebProgramming")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         try{
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"WebProgramming.pdf");
@@ -253,7 +275,7 @@ public class Download extends AppCompatActivity {
         switch (requestCode){
             case PERMISSION_STORAGE_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startDownload();
+                    webProgramming();
                 }
                 else {
                     Toast.makeText(this, "Permintaan Ditolak ", Toast.LENGTH_SHORT).show();
