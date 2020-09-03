@@ -47,7 +47,7 @@ public class Download extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
     DownloadManager downloadManager;
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.43.209:80 /api/logout/";
+    private String URL_LOGOUT = "http://192.168.43.248:80 /api/logout/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

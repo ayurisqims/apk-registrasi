@@ -62,8 +62,10 @@ public class Upload extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int REQUEST_GALLERY = 200;
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.43.209:80/api/logout/";
+    private String URL_LOGOUT = "http://192.168.43.248:80/api/logout/";
     String filePath = null;
+    Intent myFileIntent;
+    TextView nmFile ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,10 +151,12 @@ public class Upload extends AppCompatActivity {
     }
 
     private void filePicker() {
+        
         Toast.makeText(Upload.this, "File Dipilih", Toast.LENGTH_SHORT).show();
-        Intent filePick = new Intent(Intent.ACTION_PICK);
-        filePick.setType("image/*");
-        startActivityForResult(filePick, REQUEST_GALLERY);
+        myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        myFileIntent.setType("*/*");
+        startActivityForResult(myFileIntent, 10);
+
     }
 
     @Override
@@ -171,10 +175,9 @@ public class Upload extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         TextView fileName = findViewById(R.id.file);
 
-        if(requestCode==REQUEST_GALLERY && resultCode== Activity.RESULT_OK){
+        if(resultCode== Activity.RESULT_OK){
             String filePath = getRealPathUri(data.getData(), Upload.this);
             Log.d("File path : ", " " + filePath);
 
@@ -183,7 +186,9 @@ public class Upload extends AppCompatActivity {
             File file = new File(filePath);
             fileName.setText(file.getName());
         }
+
     }
+
 
     public String getRealPathUri(Uri uri, Activity activity){
         Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);

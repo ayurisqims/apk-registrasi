@@ -46,8 +46,7 @@ public class Regist_kel extends AppCompatActivity {
             txtJumlah, txtKelompok, txtNK, txtEmail, txtPassword;
     TextView txtHasil, periodeMulai,periodeAkhir;
 
-    private static String URL_REGIST = "http://192.168.100.174:80/api/register";
-    private static String URL_DATA_KEL = "http://192.168.100.174:80/api/data";
+    private static String URL_REGIST = "http://192.168.43.248:80/api/register/";
 
 
     @Override
@@ -113,7 +112,6 @@ public class Regist_kel extends AppCompatActivity {
 
     private void initRegister() {
 
-        txtHasil = findViewById(R.id.txtHasil);
         txtUniv = findViewById(R.id.inputUniv);
         txtFakultas = findViewById(R.id.inputFakultas);
         txtProdi = findViewById(R.id.inputProdi);
@@ -254,16 +252,11 @@ public class Regist_kel extends AppCompatActivity {
                     JSONObject user = object.getJSONObject("user");
 
                     SharedPreferences userPref = getApplicationContext().getSharedPreferences
-                            ("user", MainActivity.MODE_PRIVATE);
+                            ("user", Regist_kel.MODE_PRIVATE);
                     SharedPreferences.Editor editor = userPref.edit();
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
                     editor.apply();
-
-                    Toast.makeText(Regist_kel.this, "Registrasi Berhasil ",
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Regist_kel.this, MainActivity.class);
-                    startActivity(intent);
                 } else {
                     Toast.makeText(Regist_kel.this, "Data yang dimasukan salah",
                             Toast.LENGTH_SHORT).show();
@@ -290,9 +283,17 @@ public class Regist_kel extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
 
+        try{
+            Toast.makeText(Regist_kel.this, "Registrasi Berhasil ",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Regist_kel.this, MainActivity.class);
+            startActivity(intent);
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        } catch (Exception e){
+            Toast.makeText(Regist_kel.this, "Registrasi Gagal!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     }

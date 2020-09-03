@@ -35,12 +35,14 @@
 
     <!--SPINNER-->
     <string-array name="JenisKelamin">
+        <item> - </item>
         <item>Laki-laki</item>
         <item>Perempuan</item>
     </string-array>
 
-    <!--SPINNER BIDANG MINAT-->
-    <string-array name="BidangMinat">
+    <!--SPINNER KEAHLIAN-->
+    <string-array name="keahlian">
+        <item> - </item>
         <item>UI/UX</item>
         <item>Android Developer</item>
         <item>Web Progaming</item>

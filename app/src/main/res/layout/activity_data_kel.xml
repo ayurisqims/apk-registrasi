@@ -62,7 +62,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txtHasil"
+                        android:id="@+id/txtUniv"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -74,6 +74,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtFakultas"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtProdi"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,6 +96,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtAlamat_univ"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -104,6 +107,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtJumlah_ang"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,6 +118,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtKel"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,16 +129,29 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtPeriodeM"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Periode Magang"
+                        android:text="Periode Mulai"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtPeriodeA"
+                        style="@style/styleEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Periode Akhir"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtNK"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -144,6 +162,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/txtEmail"
                         style="@style/styleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -175,14 +194,14 @@
                             android:textSize="15sp" />
 
                         <Button
-                            android:id="@+id/btnTambah"
+                            android:id="@+id/btnDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/button2"
-                            android:text="Tambah Anggota Kelompok"
+                            android:text="Detail Anggota Kelompok"
                             android:textSize="15sp"
                             android:textAllCaps="false"
                             android:textColor="@color/kode"/>

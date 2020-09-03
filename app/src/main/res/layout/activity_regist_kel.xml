@@ -346,20 +346,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password"></com.google.android.material.textfield.TextInputEditText>
 
-            <Button
-                android:id="@+id/btnTambah"
-                android:layout_width="178dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="588dp"
-                android:layout_weight="1"
-                android:background="@drawable/button2"
-                android:text="Tambah Anggota Kelompok"
-                android:textAllCaps="false"
-                android:textColor="@color/kode"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.937"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <Button-->
+<!--                android:id="@+id/btnTambah"-->
+<!--                android:layout_width="178dp"-->
+<!--                android:layout_height="27dp"-->
+<!--                android:layout_marginTop="588dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/button2"-->
+<!--                android:text="Tambah Anggota Kelompok"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/kode"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.937"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <Button
                 android:id="@+id/btnSubmit"
