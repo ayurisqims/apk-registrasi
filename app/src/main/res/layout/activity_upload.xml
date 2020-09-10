@@ -26,7 +26,7 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
-            android:id="@+id/judul"
+            android:id="@+id/txtJudul"
             android:gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="50dp"
@@ -66,7 +66,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/file"
+                        android:id="@+id/txtFile"
                         style="@style/styleEditText"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="60dp"
@@ -82,7 +82,7 @@
                         android:padding="10dp">
 
                         <Button
-                            android:id="@+id/select"
+                            android:id="@+id/btnSelect"
                             style="@style/styleEditText"
                             android:layout_width="153dp"
                             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                             android:text="Select"
                             android:textColor="@color/kode" />
                         <Button
-                            android:id="@+id/upload"
+                            android:id="@+id/btnUpload"
                             style="@style/styleEditText"
                             android:layout_width="149dp"
                             android:layout_height="wrap_content"

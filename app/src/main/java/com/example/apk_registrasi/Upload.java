@@ -59,13 +59,14 @@ import okhttp3.Response;
 
 public class Upload extends AppCompatActivity {
 
+
+    private String URL_LOGOUT = "http://192.168.100.174:80/api/logout/";
     private static final int PERMISSION_REQUEST_CODE = 1;
-    private static final int REQUEST_GALLERY = 200;
+
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.43.248:80/api/logout/";
     String filePath = null;
     Intent myFileIntent;
-    TextView nmFile ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class Upload extends AppCompatActivity {
 
         preferences = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
 
-        Button selectFile = findViewById(R.id.select);
+        Button selectFile = findViewById(R.id.btnSelect);
         selectFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +91,7 @@ public class Upload extends AppCompatActivity {
             }
         });
 
-        Button uploadFile = findViewById(R.id.upload);
+        Button uploadFile = findViewById(R.id.btnUpload);
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +103,7 @@ public class Upload extends AppCompatActivity {
             }
         });
 
+//        Membuat BottomNavigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_nav);
         bottomNavigationView.setSelectedItemId(R.id.navigation_upload);
         bottomNavigationView.setOnNavigationItemSelectedListener
@@ -127,11 +129,7 @@ public class Upload extends AppCompatActivity {
         });
     }
 
-    private void fileUpload() {
-        UploadTask uploadTask = new UploadTask();
-        uploadTask.execute(new String[]{filePath});
-    }
-
+    //  Membuat Method Perizinan
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(Upload.this, Manifest.permission.READ_EXTERNAL_STORAGE))
         {
@@ -150,17 +148,9 @@ public class Upload extends AppCompatActivity {
         }
     }
 
-    private void filePicker() {
-        
-        Toast.makeText(Upload.this, "File Dipilih", Toast.LENGTH_SHORT).show();
-        myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        myFileIntent.setType("*/*");
-        startActivityForResult(myFileIntent, 10);
-
-    }
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult
+            (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
@@ -175,7 +165,7 @@ public class Upload extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        TextView fileName = findViewById(R.id.file);
+        TextView fileName = findViewById(R.id.txtFile);
 
         if(resultCode== Activity.RESULT_OK){
             String filePath = getRealPathUri(data.getData(), Upload.this);
@@ -190,6 +180,21 @@ public class Upload extends AppCompatActivity {
     }
 
 
+    //    Membuat Method Upload File
+    private void fileUpload() {
+        UploadTask uploadTask = new UploadTask();
+        uploadTask.execute(new String[]{filePath});
+    }
+
+    private void filePicker() {
+        
+        Toast.makeText(Upload.this, "File Dipilih", Toast.LENGTH_SHORT).show();
+        myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        myFileIntent.setType("*/*");
+        startActivityForResult(myFileIntent, 10);
+
+    }
+
     public String getRealPathUri(Uri uri, Activity activity){
         Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
         if(cursor==null){
@@ -199,6 +204,98 @@ public class Upload extends AppCompatActivity {
             int id=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             return cursor.getString(id);
         }
+    }
+
+    private class UploadTask extends AsyncTask<String, String, String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(String o) {
+            super.onPostExecute(o);
+            if (o.equalsIgnoreCase("true")){
+                Toast.makeText(Upload.this, "File upload", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Upload.this, "Gagal Upload File", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            if(uploadFiles(strings[0])){
+                return "true";
+            } else {
+                return "failed";
+            }
+        }
+
+        private boolean uploadFiles(String path ){
+            File file = new File(path);
+            try {
+                RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("Files", file.getName(), RequestBody.create(MediaType.parse("image/*"),file))
+                        .addFormDataPart("some_key", "some_value")
+                        .addFormDataPart("submit", "submit")
+                        .build();
+
+                okhttp3.Request request = new okhttp3.Request.Builder().url("http://192.168.43.209:80/api/upload").post(requestBody).build();
+
+                OkHttpClient client = new OkHttpClient();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+
+                    }
+                });
+                return true;
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+
+
+    //    Membuat method logout
+    private void logout() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
+
+            try {
+                JSONObject object = new JSONObject(response);
+                if (object.getBoolean("success")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    startActivity(new Intent(Upload.this, MainActivity.class));
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            error.printStackTrace();
+        }) {
+
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = preferences.getString("token", "");
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Authorization", "Bearer" +token);
+                return map;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
 
     @Override
@@ -233,94 +330,5 @@ public class Upload extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
-    }
-
-    private void logout() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
-
-            try {
-                JSONObject object = new JSONObject(response);
-                if (object.getBoolean("success")) {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.clear();
-                    editor.apply();
-                    startActivity(new Intent(Upload.this, MainActivity.class));
-                    finish();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            error.printStackTrace();
-        }) {
-
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = preferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-                map.put("Authorization", "Bearer" +token);
-                return map;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
-    }
-
-    private class UploadTask extends AsyncTask<String, String, String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected void onPostExecute(String o) {
-            super.onPostExecute(o);
-            if (o.equalsIgnoreCase("true")){
-                Toast.makeText(Upload.this, "File upload", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Upload.this, "Gagal Upload File", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-           if(uploadFiles(strings[0])){
-               return "true";
-           } else {
-               return "failed";
-           }
-        }
-
-        private boolean uploadFiles(String path ){
-            File file = new File(path);
-            try {
-                RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("Files", file.getName(), RequestBody.create(MediaType.parse("image/*"),file))
-                        .addFormDataPart("some_key", "some_value")
-                        .addFormDataPart("submit", "submit")
-                        .build();
-
-                okhttp3.Request request = new okhttp3.Request.Builder().url("http://192.168.43.209:80/api/upload").post(requestBody).build();
-
-                OkHttpClient client = new OkHttpClient();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-
-                    }
-                });
-                return true;
-            } catch (Exception e){
-                e.printStackTrace();
-                return false;
-            }
-        }
     }
 }

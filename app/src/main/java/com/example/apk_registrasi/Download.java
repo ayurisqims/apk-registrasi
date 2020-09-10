@@ -44,20 +44,20 @@ import retrofit2.http.Url;
 
 public class Download extends AppCompatActivity {
 
+    private String URL_LOGOUT = "http://192.168.100.174:80/api/logout/";
     private static final int PERMISSION_STORAGE_CODE = 1000;
-    DownloadManager downloadManager;
+
     SharedPreferences preferences;
-    private String URL_LOGOUT = "http://192.168.43.248:80 /api/logout/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
 
-
         preferences = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
 
-        TextView webProgram = findViewById(R.id.webProgramming);
+        TextView webProgram = findViewById(R.id.txtWebProgramming);
         webProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class Download extends AppCompatActivity {
             }
         });
 
-        TextView ui = findViewById(R.id.webDev);
+        TextView ui = findViewById(R.id.txtUI);
         ui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,42 +98,60 @@ public class Download extends AppCompatActivity {
             }
         });
 
-        TextView frontend = findViewById(R.id.frontend);
+        TextView frontend = findViewById(R.id.txtFrontend);
         frontend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
 
-                Uri uri = Uri.parse("http://informatika.uin-malang.ac.id/wp-content/uploads/2019/04/Modul-prak-Web-programming.pdf");
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Long reference = downloadManager.enqueue(request);
+                    } else {
+                        frontend();
+                    }
+                } else {
+                    frontend();
+                }
             }
         });
 
-        TextView database = findViewById(R.id.frontend);
+        TextView database = findViewById(R.id.txtDatabase);
         database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
 
-                Uri uri = Uri.parse("http://informatika.uin-malang.ac.id/wp-content/uploads/2019/04/Modul-prak-Web-programming.pdf");
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Long reference = downloadManager.enqueue(request);
+                    } else {
+                        database();
+                    }
+                } else {
+                    database();
+                }
             }
         });
 
-        TextView webDev = findViewById(R.id.frontend);
+        TextView webDev = findViewById(R.id.txtWebDev);
         webDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
 
-                Uri uri = Uri.parse("http://informatika.uin-malang.ac.id/wp-content/uploads/2019/04/Modul-prak-Web-programming.pdf");
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Long reference = downloadManager.enqueue(request);
+                    } else {
+                        webDev();
+                    }
+                } else {
+                    webDev();
+                }
             }
         });
 
@@ -161,8 +179,30 @@ public class Download extends AppCompatActivity {
         });
     }
 
+    //Mendownload file melalui ip yang ada
+    private void webProgramming() {
+
+        String link = "http://192.168.43.248/data_soal/Web%20Programming.pdf";
+        Uri uri = Uri.parse(link);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                DownloadManager.Request.NETWORK_MOBILE)
+                .setTitle("WebProgramming")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        try{
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"WebProgramming.pdf");
+
+            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager.enqueue(request);
+            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
+        } catch(Exception e) {
+            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void ui() {
-        String link = "http://192.168.100.174/data_soal/UX.pdf";
+        String link = "http://192.168.43.248/data_soal/UX.pdf";
         Uri uri = Uri.parse(link);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
@@ -182,19 +222,60 @@ public class Download extends AppCompatActivity {
         }
     }
 
-
-    private void webProgramming() {
-
-        String link = "http://192.168.100.174/data_soal/Web%20Programming.pdf";
+    private void frontend() {
+        String link = "http://192.168.43.248data_soal/UX.pdf";
         Uri uri = Uri.parse(link);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE)
-                .setTitle("WebProgramming")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Frontend");
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"WebProgramming.pdf");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Frontend.pdf");
+
+            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager.enqueue(request);
+            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
+        } catch(Exception e) {
+            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void database() {
+        String link = "http://192.168.43.248/data_soal/UX.pdf";
+        Uri uri = Uri.parse(link);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Database");
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        try{
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Database.pdf");
+
+            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager.enqueue(request);
+            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
+        } catch(Exception e) {
+            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void webDev() {
+        String link = "http://192.168.43.248/data_soal/UX.pdf";
+        Uri uri = Uri.parse(link);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Web Developer");
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        try{
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Web Developer.pdf");
 
             DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
             downloadManager.enqueue(request);
@@ -205,38 +286,26 @@ public class Download extends AppCompatActivity {
     }
 
 
+    // Membuat Perizinan
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.buttom_logout, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch ((item.getItemId())) {
-            case R.id.logout: {
-
-                AlertDialog.Builder alertDialogBuilder = new  AlertDialog.Builder(this);
-                alertDialogBuilder.setMessage("Apakah anda ingin keluar?");
-                alertDialogBuilder.setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logout();
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialogBuilder.show();
+    public void onRequestPermissionsResult
+    (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PERMISSION_STORAGE_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    webProgramming();
+                }
+                else {
+                    Toast.makeText(this, "Permintaan Ditolak ", Toast.LENGTH_SHORT).show();
+                }
             }
-
         }
-        return super.onOptionsItemSelected(item);
+
+
     }
 
+
+    // Membuat Method Logout
     private void logout() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
@@ -271,18 +340,35 @@ public class Download extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case PERMISSION_STORAGE_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    webProgramming();
-                }
-                else {
-                    Toast.makeText(this, "Permintaan Ditolak ", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.buttom_logout, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch ((item.getItemId())) {
+            case R.id.logout: {
+
+                AlertDialog.Builder alertDialogBuilder = new  AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Apakah anda ingin keluar?");
+                alertDialogBuilder.setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logout();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialogBuilder.show();
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

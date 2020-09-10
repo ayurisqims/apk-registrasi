@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/imgLogo"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/judul"
+        android:id="@+id/txtJudul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
+        android:layout_below="@id/imgLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="148dp"
         android:padding="5dp"
@@ -140,7 +140,7 @@
                 app:layout_constraintVertical_bias="0.829" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/InputEmail"
+                android:id="@+id/txtInputEmail"
                 style="@style/styleEditText"
                 android:layout_width="365dp"
                 android:layout_height="40dp"
@@ -155,7 +155,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/InputPassword"
+                android:id="@+id/txtInputPassword"
                 style="@style/styleEditText"
                 android:layout_width="365dp"
                 android:layout_height="40dp"

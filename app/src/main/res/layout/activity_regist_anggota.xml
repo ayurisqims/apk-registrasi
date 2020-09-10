@@ -8,7 +8,7 @@
     tools:context=".Regist_anggota">
 
     <TextView
-        android:id="@+id/judul"
+        android:id="@+id/txtJudul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
             android:layout_height="643dp">
 
             <TextView
-                android:id="@+id/nama"
+                android:id="@+id/txtNama"
                 android:layout_width="386dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="16dp"
@@ -76,10 +76,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nama" />
+                app:layout_constraintTop_toBottomOf="@+id/txtNama" />
 
             <TextView
-                android:id="@+id/nim"
+                android:id="@+id/txtNim"
                 android:layout_width="386dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="4dp"
@@ -103,11 +103,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nim"
+                app:layout_constraintTop_toBottomOf="@+id/txtNim"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/jenisKelamin"
+                android:id="@+id/txtJenisKelamin"
                 android:layout_width="277dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="136dp"
@@ -130,11 +130,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jenisKelamin"
+                app:layout_constraintTop_toBottomOf="@+id/txtJenisKelamin"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/noTelp"
+                android:id="@+id/txtNoTelp"
                 android:layout_width="247dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="4dp"
@@ -158,11 +158,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/noTelp"
+                app:layout_constraintTop_toBottomOf="@+id/txtNoTelp"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/txtEmail"
                 android:layout_width="261dp"
                 android:layout_height="18dp"
                 android:layout_marginTop="260dp"
@@ -186,13 +186,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail"
                 tools:ignore="MissingConstraints" />
 
             <!--android:onClick="clicked"-->
 
             <TextView
-                android:id="@+id/sosmed"
+                android:id="@+id/txtSosmed"
                 android:layout_width="285dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="316dp"
@@ -216,7 +216,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sosmed"
+                app:layout_constraintTop_toBottomOf="@+id/txtSosmed"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -248,7 +248,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/alamat" />
 
             <TextView
-                android:id="@+id/keahlian"
+                android:id="@+id/txtKeahlian"
                 android:layout_width="269dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="428dp"
@@ -272,10 +272,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.197"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/keahlian" />
+                app:layout_constraintTop_toBottomOf="@+id/txtKeahlian" />
 
             <TextView
-                android:id="@+id/bidangMinat"
+                android:id="@+id/txtBidangMinat"
                 android:layout_width="269dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="487dp"

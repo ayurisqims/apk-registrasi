@@ -24,18 +24,20 @@
                 android:orientation="vertical">
             </LinearLayout>
         </LinearLayout>
+
         <TextView
-            android:id="@+id/judul"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:id="@+id/txtJudul"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
             android:padding="5dp"
             android:text="DETAIL KELOMPOK"
             android:textColor="@color/kode"
             android:textSize="21sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="397dp"
@@ -61,117 +63,275 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txtUniv"
-                        style="@style/styleEditText"
+<!--                   Universitas-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/universitas"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtFakultas"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtUniv"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/universitas"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbUniv"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="72dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Politeknik"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Fakultas-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/fakultas"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtFakultas"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/fakultas"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/txtProdi"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtJwbFakultas"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="99dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Teknik"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Prodi-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/prodi"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtAlamat_univ"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtProdi"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/prodi"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbProdi"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="125dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Teknologi "
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Alamat Universitas-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/alamat"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtJumlah_ang"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtAlamat"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/alamat"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbAlamat"
+                            style="@style/styleEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Madiun"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Jumlah Anggota-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/jumlah"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtKel"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtJumlah"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/jumlah"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbJumlah"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="48dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="6"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Kelompok-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/kel"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtPeriodeM"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtKelompok"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/kel"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbKel"
+                            style="@style/styleEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="100dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="3"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Periode Mulai-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="Periode Mulai"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtPeriodeA"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtPeriodM"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/periodM"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbPeriodM"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="57dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="2020-"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Periode Akhir-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="Periode Akhir"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtNK"
-                        style="@style/styleEditText"
+                        <TextView
+                            android:id="@+id/txtPeriodA"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/periodA"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/txtJwbPeriodA"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="57dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="2020-"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+<!--                    Nama Ketua-->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/nama"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtEmail"
-                        style="@style/styleEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/email"
-                        android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        <TextView
+                            android:id="@+id/txtNamaKetua"
+                            style="@style/styleEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Nama Ketua"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
 
+                        <TextView
+                            android:id="@+id/txtJwbNamaKetua"
+                            style="@style/styleEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="83dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="irfani"
+                            android:textColor="@color/colorText"
+                            android:textSize="15sp" />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -195,16 +355,16 @@
 
                         <Button
                             android:id="@+id/btnDetail"
-                            android:layout_width="match_parent"
+                            android:layout_width="252dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/button2"
                             android:text="Detail Anggota Kelompok"
-                            android:textSize="15sp"
                             android:textAllCaps="false"
-                            android:textColor="@color/kode"/>
+                            android:textColor="@color/kode"
+                            android:textSize="15sp" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

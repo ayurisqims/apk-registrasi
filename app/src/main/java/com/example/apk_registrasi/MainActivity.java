@@ -36,9 +36,9 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextInputEditText txtEmail, txtPassword;
-    TextInputLayout layoutEmail, layoutPassword;
-    private String URL_LOGIN = "http://192.168.43.248:80/api/login/";
+    TextInputEditText Email, Password;
+    TextInputLayout LayoutEmail, LayoutPassword;
+    private String URL_LOGIN = "http://192.168.100.174:80/api/login/";
 
 
     @Override
@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        layoutEmail = findViewById(R.id.txtLayoutEmail);
-        layoutPassword = findViewById(R.id.txtLayoutPassword);
-        txtEmail = findViewById(R.id.InputEmail);
-        txtPassword = findViewById(R.id.InputPassword);
+        LayoutEmail = findViewById(R.id.txtLayoutEmail);
+        LayoutPassword = findViewById(R.id.txtLayoutPassword);
+        Email = findViewById(R.id.txtInputEmail);
+        Password = findViewById(R.id.txtInputPassword);
 
         Button login = findViewById(R.id.btnLogin);
         Button register = findViewById(R.id.btnRegist);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtEmail.addTextChangedListener(new TextWatcher() {
+        Email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!txtEmail.getText().toString().isEmpty()) {
-                    layoutEmail.setErrorEnabled(false);
+                if (!Email.getText().toString().isEmpty()) {
+                    LayoutEmail.setErrorEnabled(false);
                 }
             }
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtPassword.addTextChangedListener(new TextWatcher() {
+        Password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (txtPassword.getText().toString().length() > 7) {
-                    layoutPassword.setErrorEnabled(false);
+                if (Password.getText().toString().length() > 7) {
+                    LayoutPassword.setErrorEnabled(false);
                 }
             }
 
@@ -115,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validate() {
-        if (txtEmail.getText().toString().isEmpty()) {
-            txtEmail.setError("Masukkan Email");
+        if (Email.getText().toString().isEmpty()) {
+            Email.setError("Masukkan Email");
             return false;
         }
-        if (txtPassword.getText().toString().length() < 8) {
-            txtPassword.setError("Masukkan Password 8 Karakter");
+        if (Password.getText().toString().length() < 8) {
+            Password.setError("Masukkan Password 8 Karakter");
             return false;
         }
         return true;
@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", txtEmail.getText().toString().trim());
-                params.put("password", txtPassword.getText().toString().trim());
+                params.put("email", Email.getText().toString().trim());
+                params.put("password", Password.getText().toString().trim());
                 return params;
             }
         };

@@ -28,7 +28,9 @@
             android:name=".Download"
             android:label="@string/download"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Data_anggota" />
+        <activity android:name=".Data_anggota"
+            android:label="Detail Anggota Kelompok"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".Data_kel"
             android:label="@string/data"

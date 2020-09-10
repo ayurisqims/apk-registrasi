@@ -1,21 +1,17 @@
 package com.example.apk_registrasi;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,36 +21,28 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Regist_anggota extends AppCompatActivity {
 
 
-    EditText txtNama, txtNIM, txtNO, txtEmail, txtSosmed, txtAlamat;
-    Spinner jk, bm;
+    EditText Nama, NIM, NO, Email, Sosmed, Alamat;
+    Spinner JenisKelamin, BidangMinat;
     SharedPreferences userPref;
     String jenisKelamin, keahlian;
-    CheckBox ui, web, frontend, androidDev, database;
+    CheckBox UI, Web, Frontend, AndroidDev, Database;
 
-    private static String URL_Regist_Anggota = "http://192.168.43.248:80/api/RegisterAnggota/";
+    private static String URL_Regist_Anggota = "http://192.168.100.174:80/api/RegisterAnggota/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist_anggota);
-
-        ArrayList<CheckBox> bdngMnt = new ArrayList<CheckBox>();
-        for (CheckBox item : bdngMnt){
-                if (ui.isChecked())
-                    String text = ui.getText().toString();
-            }
 
 
         initRegister();
@@ -112,19 +100,19 @@ public class Regist_anggota extends AppCompatActivity {
 
         userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        txtNama = findViewById(R.id.editNama);
-        txtNIM = findViewById(R.id.editNIM);
-        txtNO = findViewById(R.id.editNO);
-        txtEmail = findViewById(R.id.editEmail);
-        txtAlamat = findViewById(R.id.editAlamat);
-        txtSosmed = findViewById(R.id.editSosmed);
-        jk = findViewById(R.id.spinner);
-        bm = findViewById(R.id.spinnerKeahlian);
-        ui = findViewById(R.id.cbUI);
-        web = findViewById(R.id.cbWeb);
-        frontend = findViewById(R.id.cbFrontend);
-        database = findViewById(R.id.cbDatabase);
-        androidDev = findViewById(R.id.cbAndroid);
+        Nama = findViewById(R.id.editNama);
+        NIM = findViewById(R.id.editNIM);
+        NO = findViewById(R.id.editNO);
+        Email = findViewById(R.id.editEmail);
+        Alamat = findViewById(R.id.editAlamat);
+        Sosmed = findViewById(R.id.editSosmed);
+        JenisKelamin = findViewById(R.id.spinner);
+        BidangMinat = findViewById(R.id.spinnerKeahlian);
+        UI = findViewById(R.id.cbUI);
+        Web = findViewById(R.id.cbWeb);
+        Frontend = findViewById(R.id.cbFrontend);
+        Database = findViewById(R.id.cbDatabase);
+        AndroidDev = findViewById(R.id.cbAndroid);
 
         Button simpan = findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
@@ -139,28 +127,28 @@ public class Regist_anggota extends AppCompatActivity {
     }
 
     private boolean validate() {
-        if (txtNama.getText().toString().isEmpty()) {
-            txtNama.setError("Masukkan Nama");
+        if (Nama.getText().toString().isEmpty()) {
+            Nama.setError("Masukkan Nama");
             return false;
         }
-        if (txtNIM.getText().toString().isEmpty()) {
-            txtNIM.setError("Masukkan NIM");
+        if (NIM.getText().toString().isEmpty()) {
+            NIM.setError("Masukkan NIM");
             return false;
         }
-        if (txtNO.getText().toString().isEmpty()) {
-            txtNO.setError("Masukkan No Hp");
+        if (NO.getText().toString().isEmpty()) {
+            NO.setError("Masukkan No Hp");
             return false;
         }
-        if (txtEmail.getText().toString().isEmpty()) {
-            txtEmail.setError("Masukkan Email");
+        if (Email.getText().toString().isEmpty()) {
+            Email.setError("Masukkan Email");
             return false;
         }
-        if (txtSosmed.getText().toString().isEmpty()) {
-            txtSosmed.setError("Masukkan Sosial Media");
+        if (Sosmed.getText().toString().isEmpty()) {
+            Sosmed.setError("Masukkan Sosial Media");
             return false;
         }
-        if (txtAlamat.getText().toString().isEmpty()) {
-            txtAlamat.setError("Masukkan Alamat");
+        if (Alamat.getText().toString().isEmpty()) {
+            Alamat.setError("Masukkan Alamat");
             return false;
         }
         return true;
@@ -189,6 +177,8 @@ public class Regist_anggota extends AppCompatActivity {
             }, error -> Toast.makeText(Regist_anggota.this, "Error" +error.toString(),
                     Toast.LENGTH_SHORT).show()) {
 
+
+
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     String token = userPref.getString("token", "");
@@ -198,23 +188,21 @@ public class Regist_anggota extends AppCompatActivity {
                     return params;
                 }
 
+                private ArrayList<CheckBox> bdgMnt = new ArrayList<>();
 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> params = new HashMap<>();
 
-                    if(ui.isChecked()){
-                        params.put("bidang_minat", bdgMinat.toString());
-                    }
-
-                    params.put("nama", txtNama.getText().toString());
-                    params.put("nim", txtNIM.getText().toString());
-                    params.put("no_hp", txtNO.getText().toString());
-                    params.put("sosmed", txtSosmed.getText().toString());
+                    params.put("nama", Nama.getText().toString());
+                    params.put("nim", NIM.getText().toString());
+                    params.put("no_hp", NO.getText().toString());
+                    params.put("sosmed", Sosmed.getText().toString());
                     params.put("jenis_kelamin", jenisKelamin);
                     params.put("keahlian", keahlian);
-                    params.put("email_anggota", txtEmail.getText().toString());
-                    params.put("alamat", txtAlamat.getText().toString());
+                    params.put("email_anggota", Email.getText().toString());
+                    params.put("alamat", Alamat.getText().toString());
+
                     return params;
                 }
             };
