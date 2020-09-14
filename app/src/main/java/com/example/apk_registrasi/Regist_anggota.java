@@ -37,7 +37,7 @@ public class Regist_anggota extends AppCompatActivity {
     String jenisKelamin, keahlian;
     CheckBox UI, Web, Frontend, AndroidDev, Database;
 
-    private static String URL_Regist_Anggota = "http://192.168.100.174:80/api/RegisterAnggota/";
+    private static String URLRegistAnggota = "http://192.168.100.174:80/api/registerAnggota";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +156,7 @@ public class Regist_anggota extends AppCompatActivity {
 
     private void Registrasi() {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_Regist_Anggota, response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URLRegistAnggota, response -> {
 
                 try {
                     JSONObject object = new JSONObject(response);
@@ -164,8 +164,6 @@ public class Regist_anggota extends AppCompatActivity {
                     if (object.getBoolean("success")) {
                         Toast.makeText(Regist_anggota.this, "Registrasi Berhasil ",
                                 Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Regist_anggota.this, MainActivity.class);
-//                        startActivity(intent);
                     } else {
                         Toast.makeText(Regist_anggota.this, "Data yang dimasukan salah",
                                 Toast.LENGTH_SHORT).show();
@@ -177,8 +175,6 @@ public class Regist_anggota extends AppCompatActivity {
             }, error -> Toast.makeText(Regist_anggota.this, "Error" +error.toString(),
                     Toast.LENGTH_SHORT).show()) {
 
-
-
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     String token = userPref.getString("token", "");
@@ -187,8 +183,6 @@ public class Regist_anggota extends AppCompatActivity {
 
                     return params;
                 }
-
-                private ArrayList<CheckBox> bdgMnt = new ArrayList<>();
 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {

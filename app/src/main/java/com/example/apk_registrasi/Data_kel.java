@@ -38,8 +38,8 @@ import java.util.Map;
 
 public class Data_kel extends Activity {
 
-    private String URL_DataKel = "http://192.168.100.174:80/api/data/";
-    TextView Univ,Fakultas, Prodi, Alamat, Jumlah, Kel, PeriodeM, PeriodeA, NamaKetua, Email;
+    private String URL_Data_Kelompok = "http://192.168.100.174:80/api/data/";
+    TextView Univ,Fakultas, Prodi, Alamat, Jumlah, Kel, PeriodeM, PeriodeA, NamaKetua;
     RequestQueue requestQueue;
     SharedPreferences userPref;
 
@@ -79,9 +79,6 @@ public class Data_kel extends Activity {
     }
 
     private void tombol() {
-
-        userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-
         Univ = findViewById(R.id.txtJwbUniv);
         Fakultas = findViewById(R.id.txtJwbFakultas);
         Prodi = findViewById(R.id.txtJwbProdi);
@@ -113,7 +110,7 @@ public class Data_kel extends Activity {
 //    Menampilkan data dengan JSONObject dan SharedPreferences
     private void tampilData() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DataKel, response ->  {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Kelompok, response ->  {
 
                 try {
                     JSONObject jsonobject = new JSONObject(response);
@@ -184,7 +181,7 @@ public class Data_kel extends Activity {
 //    Membuat Method Logout
     private void logout() {
 
-    StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DataKel, response -> {
+    StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Kelompok, response -> {
 
         try {
             JSONObject object = new JSONObject(response);

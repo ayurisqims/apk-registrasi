@@ -65,7 +65,7 @@
                     android:background="@color/putih"
                     android:orientation="vertical">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/txtFile"
                         style="@style/styleEditText"
                         android:layout_marginLeft="10dp"

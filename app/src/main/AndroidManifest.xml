@@ -3,23 +3,24 @@
     package="com.example.apk_registrasi">
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:icon="@drawable/logokreasi"
         android:label="Registrasi"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:configChanges="orientation|screenSize"
         android:usesCleartextTraffic="true">
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
         <activity
             android:name=".Upload"
             android:label="@string/upload"
@@ -28,9 +29,10 @@
             android:name=".Download"
             android:label="@string/download"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Data_anggota"
+        <activity
+            android:name=".Data_anggota"
             android:label="Detail Anggota Kelompok"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Data_kel"
             android:label="@string/data"
