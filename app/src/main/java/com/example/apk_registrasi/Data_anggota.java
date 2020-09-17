@@ -2,6 +2,7 @@ package com.example.apk_registrasi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,12 +18,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Models.Anggota;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Data_anggota extends AppCompatActivity {
@@ -30,24 +34,45 @@ public class Data_anggota extends AppCompatActivity {
     private String URL_Data_Anggota = "http://192.168.100.174:80/api/data_anggota/";
     private LinearLayoutManager layoutManager;
 
-//    RecyclerView.Adapter adapter;
-//    RecyclerView rvDataAnggota;
-//    List<Anggota> listAnggota = null;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView rvDataAnggota;
+    List<Anggota> Anggota_item;
+
     SharedPreferences userPref;
     RequestQueue requestQueue;
     TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
+    private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_anggota);
+        setContentView(R.layout.activity_recycyler_view);
 
         userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-//        rvDataAnggota.setLayoutManager(new LinearLayoutManager(this));
-//        rvDataAnggota = findViewById(R.id.rvDataAnggota);
+
+//        Recycler View
+        Anggota_item = new ArrayList<>();
+
+        rvDataAnggota = findViewById(R.id.recycler_view);
+
+        // use a linear layout manager
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(Data_anggota.this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvDataAnggota.setLayoutManager(layoutManager);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        rvDataAnggota.setHasFixedSize(true);
+
+        // specify an adapter (see also next example)
+        adapter = new MyAdapter(Data_anggota.this, (ArrayList<Anggota>) Anggota_item);
+        rvDataAnggota.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        Log.i(TAG, "onCreate: ");
 
         tombol();
         tampilData();
+
     }
 
     private void tombol() {
@@ -61,8 +86,6 @@ public class Data_anggota extends AppCompatActivity {
         Alamat = findViewById(R.id.txtJwbAlamat);
         Keahlian = findViewById(R.id.txtJwbKeahlian);
         BidangMinat = findViewById(R.id.txtJwbBidangMinat);
-
-
 //        Button tambah = findViewById(R.id.btnTambah);
 //        tambah.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -80,32 +103,28 @@ public class Data_anggota extends AppCompatActivity {
             try {
                 JSONObject jsonobject = new JSONObject(response);
                 Log.i("autolog", "tampilData ");
-
                 JSONArray jsonArray = jsonobject.getJSONArray("data");
-                JSONObject data = jsonArray.getJSONObject(0);
 
-                String StrNama = data.getString("nama");
-                String StrNIM = data.getString("nim");
-                String StrJenisKelamin = data.getString("jenis_kelamin");
-                String StrNoTelp = data.getString("no_hp");
-                String StrEmail = data.getString("email_anggota");
-                String StrSosmed = data.getString("sosmed");
-                String StrAlamat = data.getString("alamat");
-                String StrKeahlian = data.getString("keahlian");
-//                String StrBidangMinat = data.getString("bidang_minat");
-                Log.i("string", "tampilData: ");
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                Nama.setText(StrNama);
-                Nim.setText(StrNIM);
-                JenisKelamin.setText(StrJenisKelamin);
-                Alamat.setText(StrAlamat);
-                NoHp.setText(StrNoTelp);
-                Email.setText(StrEmail);
-                Sosmed.setText(StrSosmed);
-                Alamat.setText(StrAlamat);
-                Keahlian.setText(StrKeahlian);
-//                BidangMinat.setText(StrBidangMinat);
-                Log.i("autolog", "tampilData: get data json");
+                    JSONObject data = jsonArray.getJSONObject(i);
+
+                    String nama = data.getString("nama");
+                    String nim= data.getString("nim");
+                    String jenis_kelamin = data.getString("jenis_kelamin");
+                    String no_hp = data.getString("no_hp");
+                    String email_anggota = data.getString("email_anggota");
+                    String sosmed = data.getString("sosmed");
+                    String alamat = data.getString("alamat");
+                    String keahlian = data.getString("keahlian");
+//                  String bidang_minat = data.getString("bidang_minat");
+                    Log.i("string", "tampilData: ");
+
+                    Anggota anggota = new Anggota(nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian);
+                    Anggota_item.add(anggota);
+                }
+                adapter = new MyAdapter(Data_anggota.this, (ArrayList<Anggota>) Anggota_item);
+                rvDataAnggota.setAdapter(adapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
