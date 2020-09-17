@@ -1,18 +1,386 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/rl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".Data_anggota">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDataAnggota"
+    <TextView
+        android:id="@+id/txtJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="DETAIL ANGGOTA KELOMPOK"
+        android:textColor="@color/kode"
+        android:textSize="21sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_below="@+id/txtJudul"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/form"
+            android:layout_width="411dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="2dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
 
-</LinearLayout>
+            <LinearLayout
+                android:id="@+id/linier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--                   Nama-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtNama"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Nama"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbNama"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Ayu Risqi"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    NIM-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtNIM"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="NIM"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbNIM"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="99dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Teknik"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Jenis Kelamin-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtJenisKelamin"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Jenis Kelamin"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbJenisKelamin"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Perempuan"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    No Telp-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtNoHp"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="No Telepon/ WA"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbNoHp"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="089798090"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Email Anggota-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Email Anggota"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbEmail"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="57dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="ayurisqi73@gmail.com"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Sosmed-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtSosmed"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Sosial Media"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbSosmed"
+                        style="@style/styleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="ayurisqi"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Alamat-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtAlamat"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Alamat Anggota"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbAlamat"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="57dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Madiun"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Keahlian-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtKeahlian"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Keahlian"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbKeahlian"
+                        style="@style/styleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="100dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="UI/UX"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    Bidang Minat-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtBidangMinat"
+                        style="@style/styleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Bidang Minat"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtJwbBidangMinat"
+                        style="@style/styleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="83dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="irfani"
+                        android:textColor="@color/colorText"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnEdit"
+                        android:layout_width="68dp"
+                        android:layout_height="42dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/button_edit"
+                        android:text="Edit"
+                        android:textAllCaps="false"
+                        android:textColor="#04A80B"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btnHapus"
+                        android:layout_width="68dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="40dp"
+                        android:layout_weight="0"
+                        android:background="@drawable/button_hapus"
+                        android:text="Hapus"
+                        android:textAllCaps="false"
+                        android:textColor="#FF1B0A"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <!--                    <Button-->
+                <!--                        android:id="@+id/btnTambah"-->
+                <!--                        android:layout_width="42dp"-->
+                <!--                        android:layout_height="39dp"-->
+                <!--                        android:layout_alignParentStart="true"-->
+                <!--                        android:layout_alignParentLeft="true"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:layout_alignParentRight="true"-->
+                <!--                        android:layout_marginStart="304dp"-->
+                <!--                        android:layout_marginLeft="4dp"-->
+                <!--                        android:layout_marginEnd="64dp"-->
+                <!--                        android:layout_marginRight="94dp"-->
+                <!--                        android:layout_marginBottom="135dp"-->
+                <!--                        android:background="@color/blue"-->
+                <!--                        android:src="@drawable/ikon_tambah"/>-->
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
