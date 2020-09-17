@@ -42,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
          yang merupakan hasil inflatelayout (menghubungkan adapter dengan layout)
         */
 
-        View view = LayoutInflater.from(context).inflate(R.layout.data_anggota_row, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.data_anggota_row, parent, false);
 
         return new ViewHolder(view);
     }
@@ -61,7 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.Sosmed.setText(list.getSosmed());
         holder.Alamat.setText(list.getAlamat());
         holder.Keahlian.setText(list.getKeahlian());
-//        holder.BidangMinat.setText(list.getBidang_minat());
+//      holder.BidangMinat.setText(list.getBidang_minat());
 
     }
 

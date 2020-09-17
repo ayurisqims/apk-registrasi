@@ -40,7 +40,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/form"
                 android:layout_width="411dp"
-                android:layout_height="390dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="2dp"
@@ -358,23 +358,26 @@
                             android:textColor="#FF1B0A"
                             android:textSize="15sp" />
                     </LinearLayout>
+<!--                    <Button-->
+<!--                        android:id="@+id/btnTambah"-->
+<!--                        android:layout_width="42dp"-->
+<!--                        android:layout_height="39dp"-->
+<!--                        android:layout_alignParentStart="true"-->
+<!--                        android:layout_alignParentLeft="true"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_marginStart="304dp"-->
+<!--                        android:layout_marginLeft="4dp"-->
+<!--                        android:layout_marginEnd="64dp"-->
+<!--                        android:layout_marginRight="94dp"-->
+<!--                        android:layout_marginBottom="135dp"-->
+<!--                        android:background="@color/blue"-->
+<!--                        android:src="@drawable/ikon_tambah"/>-->
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btnTambah"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="304dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginEnd="64dp"
-                android:layout_marginRight="94dp"
-                android:layout_marginBottom="135dp"
-                android:background="@drawable/ikon_tambah" />
+
 
         </LinearLayout>
 

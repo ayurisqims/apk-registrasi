@@ -1,11 +1,14 @@
 package com.example.apk_registrasi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,18 +21,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Models.Anggota;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Data_anggota extends AppCompatActivity {
 
     private String URL_Data_Anggota = "http://192.168.100.174:80/api/data_anggota/";
+    private LinearLayoutManager layoutManager;
 
+//    RecyclerView.Adapter adapter;
+//    RecyclerView rvDataAnggota;
+//    List<Anggota> listAnggota = null;
     SharedPreferences userPref;
     RequestQueue requestQueue;
     TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
@@ -37,9 +47,12 @@ public class Data_anggota extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.data_anggota_row);
+        setContentView(R.layout.activity_data_anggota);
 
         userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+//        rvDataAnggota.setLayoutManager(new LinearLayoutManager(this));
+//        rvDataAnggota = findViewById(R.id.rvDataAnggota);
+
         tombol();
         tampilData();
     }
@@ -57,22 +70,23 @@ public class Data_anggota extends AppCompatActivity {
         BidangMinat = findViewById(R.id.txtJwbBidangMinat);
 
 
-        Button tambah = findViewById(R.id.btnTambah);
-        tambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent tambah = new Intent(Data_anggota.this, Regist_anggota.class);
-                startActivity(tambah);
-            }
-        });
+//        Button tambah = findViewById(R.id.btnTambah);
+//        tambah.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent tambah = new Intent(Data_anggota.this, Regist_anggota.class);
+//                startActivity(tambah);
+//            }
+//        });
     }
 
     private void tampilData() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Anggota, response ->  {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Anggota, response -> {
 
             try {
                 JSONObject jsonobject = new JSONObject(response);
+                Log.i("autolog", "tampilData ");
 
                 JSONArray jsonArray = jsonobject.getJSONArray("data");
                 JSONObject data = jsonArray.getJSONObject(0);
@@ -86,6 +100,7 @@ public class Data_anggota extends AppCompatActivity {
                 String StrAlamat = data.getString("alamat");
                 String StrKeahlian = data.getString("keahlian");
 //                String StrBidangMinat = data.getString("bidang_minat");
+                Log.i("string", "tampilData: ");
 
                 Nama.setText(StrNama);
                 Nim.setText(StrNIM);
@@ -97,8 +112,9 @@ public class Data_anggota extends AppCompatActivity {
                 Alamat.setText(StrAlamat);
                 Keahlian.setText(StrKeahlian);
 //                BidangMinat.setText(StrBidangMinat);
+                Log.i("autolog", "tampilData: get data json");
 
-            } catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }, new Response.ErrorListener() {
@@ -112,13 +128,14 @@ public class Data_anggota extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String token = userPref.getString("token", "");
                 HashMap<String, String> params = new HashMap<>();
-                params.put("Authorization", "Bearer" +token);
+                params.put("Authorization", "Bearer" + token);
 
                 return params;
             }
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("nama", Nama.getText().toString());
                 params.put("nim", Nim.getText().toString());
                 params.put("no_hp", NoHp.getText().toString());
