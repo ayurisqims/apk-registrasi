@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyAdapter"></activity>
+        <activity android:name=".Delete_data_dialog"></activity>
+        <activity android:name=".Update_data_dialog" />
+        <activity android:name=".MyAdapter" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -33,7 +35,7 @@
         <activity
             android:name=".Data_anggota"
             android:label="Detail Anggota Kelompok"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Data_kel"
             android:label="@string/data"

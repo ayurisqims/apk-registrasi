@@ -5,9 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Data_anggota extends AppCompatActivity {
+public class Data_anggota extends AppCompatActivity{
 
     private String URL_Data_Anggota = "http://192.168.100.174:80/api/data_anggota/";
     private LinearLayoutManager layoutManager;
@@ -86,14 +90,12 @@ public class Data_anggota extends AppCompatActivity {
         Alamat = findViewById(R.id.txtJwbAlamat);
         Keahlian = findViewById(R.id.txtJwbKeahlian);
         BidangMinat = findViewById(R.id.txtJwbBidangMinat);
-//        Button tambah = findViewById(R.id.btnTambah);
-//        tambah.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent tambah = new Intent(Data_anggota.this, Regist_anggota.class);
-//                startActivity(tambah);
-//            }
-//        });
+
+        ImageButton tambah = findViewById(R.id.btnTambah);
+        tambah.setOnClickListener(v -> {
+            Intent tambah1 = new Intent(Data_anggota.this, Regist_anggota.class);
+            startActivity(tambah1);
+        });
     }
 
     private void tampilData() {
@@ -165,4 +167,5 @@ public class Data_anggota extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
 }
