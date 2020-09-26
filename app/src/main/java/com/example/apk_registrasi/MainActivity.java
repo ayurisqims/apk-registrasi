@@ -21,10 +21,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextInputEditText Email, Password;
     TextInputLayout LayoutEmail, LayoutPassword;
-    private String URL_LOGIN = "http://192.168.100.174:80/api/login/";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        LayoutEmail = findViewById(R.id.txtLayoutEmail);
-        LayoutPassword = findViewById(R.id.txtLayoutPassword);
-        Email = findViewById(R.id.txtInputEmail);
-        Password = findViewById(R.id.txtInputPassword);
+        LayoutEmail     = findViewById(R.id.txtLayoutEmail);
+        LayoutPassword  = findViewById(R.id.txtLayoutPassword);
+        Email           = findViewById(R.id.txtInputEmail);
+        Password        = findViewById(R.id.txtInputPassword);
 
-        Button login = findViewById(R.id.btnLogin);
+        Button login    = findViewById(R.id.btnLogin);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validate()) {
+                    Login();
+                    Log.i("login", "onClick: ");
+                }
+            }
+        });
+
         Button register = findViewById(R.id.btnRegist);
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,23 +76,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validate()) {
-                    Login();
-                }
-            }
-        });
-
+//        Text Watcher digunakan untuk membaca atau mendeteksi text ketika user menginputkan
         Email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+//          Awalan suatu text yang akan di baca
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//          Pemrosesan suatu text
                 if (!Email.getText().toString().isEmpty()) {
                     LayoutEmail.setErrorEnabled(false);
                 }
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+//          akhiran ketikan text berhasil di baca
             }
         });
 
@@ -132,20 +135,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void Login() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_LOGIN, response -> {
+            Log.i("login", "Login: ");
 
             try {
                 JSONObject object = new JSONObject(response);
 
                 if (object.getBoolean("success")) {
                     JSONObject user = object.getJSONObject("user");
+                    JSONObject kelompok = object.getJSONObject("kelompok");
 
+//                  Menyimpan data menggunkaan SharedPreferences
                     SharedPreferences userPref = getApplicationContext().getSharedPreferences
                             ("user", MainActivity.MODE_PRIVATE);
+//                   Deklarasi edit preferences dan mengubah data
                     SharedPreferences.Editor editor = userPref.edit();
+
+//                   Mengambil data putString(database) dan menampilkan data getString
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
+                    editor.putInt("id_kelompok", kelompok.getInt("id"));
+                    editor.putString("universitas", kelompok.getString("universitas"));
+                    editor.putString("fakultas", kelompok.getString("fakultas"));
+                    editor.putString("prodi", kelompok.getString("prodi"));
+                    editor.putString("alamat_univ", kelompok.getString("alamat_univ"));
+                    editor.putString("kelompok", kelompok.getString("kelompok"));
+                    editor.putString("jumlah_anggota", kelompok.getString("jumlah_anggota"));
+                    editor.putString("periode_mulai", kelompok.getString("periode_mulai"));
+                    editor.putString("periode_akhir", kelompok.getString("periode_akhir"));
+                    editor.putString("nama_ketua", kelompok.getString("nama_ketua"));
                     editor.apply();
+                    Log.i("login", "Login: putString");
 
                     Toast.makeText(MainActivity.this, "Login Berhasil ",
                             Toast.LENGTH_SHORT).show();
@@ -160,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
             }
             }, error -> Toast.makeText(MainActivity.this, "Error" +error.toString(),
                 Toast.LENGTH_SHORT).show()) {
+
+//            Mengambil nilai parameter yang dikirim dari client ke server
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -168,8 +190,10 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        Log.i("login", "Login: RequestQueue");
 
     }
 }

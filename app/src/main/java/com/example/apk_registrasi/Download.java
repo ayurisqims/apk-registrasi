@@ -29,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,7 +45,7 @@ import retrofit2.http.Url;
 
 public class Download extends AppCompatActivity {
 
-    private String URL_LOGOUT = "http://192.168.100.174:80/api/logout/";
+
     private static final int PERMISSION_STORAGE_CODE = 1000;
 
     SharedPreferences preferences;
@@ -308,7 +309,7 @@ public class Download extends AppCompatActivity {
     // Membuat Method Logout
     private void logout() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_LOGOUT, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);

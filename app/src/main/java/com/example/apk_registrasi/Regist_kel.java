@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
@@ -31,26 +32,44 @@ import java.util.Map;
 public class Regist_kel extends AppCompatActivity {
 
     private static final String TAG = "Regist_kel";
-    private static String URL_REGIST = "http://192.168.100.174:80/api/register/";
 
-    TextView mDisplayDate, mDisplayDate1;
     DatePickerDialog.OnDateSetListener mDateSetListener, mDateSetListener1;
-    TextInputEditText Universitas, Fakultas, Prodi, Alamat, Jumlah, Kelompok, NamaKetua, Email, Password;
-    TextView Hasil, periodeMulai,periodeAkhir;
-
-
+    TextInputEditText Univ,Fakultas, Prodi, Alamat, Jumlah, Kel,  NamaKetua;
+    TextView periodeMulai,periodeAkhir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist_kel);
 
+        init();
+    }
 
-        initRegister();
+    private void init() {
 
-        mDisplayDate = (TextView) findViewById(R.id.txtPeriodM);
+        Univ            = findViewById(R.id.inputUniv);
+        Fakultas        = findViewById(R.id.inputFakultas);
+        Prodi           = findViewById(R.id.inputProdi);
+        Alamat          = findViewById(R.id.inputAlamat);
+        Jumlah          = findViewById(R.id.inputJumlah);
+        Kel             = findViewById(R.id.inputKelompok);
+        periodeMulai    = findViewById(R.id.txtPeriodM);
+        periodeAkhir    = findViewById(R.id.txtPerioA);
+        NamaKetua       = findViewById(R.id.inputNama);
 
-        mDisplayDate.setOnClickListener(view -> {
+        Button submit = findViewById(R.id.btnSubmit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               if (validate()){
+                   Registrasi();
+               }
+            }
+        });
+
+        TextView mDisplayDateMulai = findViewById(R.id.txtPeriodM);
+        mDisplayDateMulai.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -64,18 +83,16 @@ public class Regist_kel extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
-
         mDateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
             Log.d(TAG, "onDateSet: yyyy/mm/dd: " + year + "/" + month + "/" + day);
 
             String date = year + "/" + month + "/" + day;
-            mDisplayDate.setText(date);
+            mDisplayDateMulai.setText(date);
         };
 
-        mDisplayDate1 = (TextView) findViewById(R.id.txtPerioA);
-
-        mDisplayDate1.setOnClickListener(view -> {
+        TextView mDisplayDateAkhir = findViewById(R.id.txtPerioA);
+        mDisplayDateAkhir.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -89,49 +106,20 @@ public class Regist_kel extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
-
         mDateSetListener1 = (datePicker, year, month, day) -> {
             month = month + 1;
             Log.d(TAG, "onDateSet: yyyy/mm/dd: " + year + "/" + month + "/" + day);
 
             String date = year + "/" + month + "/" + day;
-            mDisplayDate1.setText(date);
+            mDisplayDateAkhir.setText(date);
         };
-
-
-    }
-
-    private void initRegister() {
-
-        Universitas = findViewById(R.id.inputUniv);
-        Fakultas = findViewById(R.id.inputFakultas);
-        Prodi = findViewById(R.id.inputProdi);
-        Alamat = findViewById(R.id.inputAlamat);
-        Jumlah = findViewById(R.id.inputJumlah);
-        Kelompok = findViewById(R.id.inputKelompok);
-        NamaKetua = findViewById(R.id.inputNama);
-        Email = findViewById(R.id.inputEmail);
-        Password = findViewById(R.id.inputPassword);
-        periodeMulai = findViewById(R.id.txtPeriodM);
-        periodeAkhir = findViewById(R.id.txtPerioA);
-
-        Button submit = findViewById(R.id.btnSubmit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               if (validate()){
-                   Registrasi();
-               }
-            }
-        });
 
     }
 
     private boolean validate(){
 
-        if (Universitas.getText().toString().isEmpty()) {
-            Universitas.setError("Masukkan Universitas");
+        if (Univ.getText().toString().isEmpty()) {
+            Univ.setError("Masukkan Universitas");
             return false;
         }
         if (Fakultas.getText().toString().isEmpty()) {
@@ -150,51 +138,38 @@ public class Regist_kel extends AppCompatActivity {
             Jumlah.setError("Masukkan Jumlah Anggota Kelompok");
             return false;
         }
-        if (Kelompok.getText().toString().isEmpty()) {
-            Kelompok.setError("Masukkan Urutan Kelompok");
+        if (Kel.getText().toString().isEmpty()) {
+            Kel.setError("Masukkan Urutan Kelompok");
             return false;
         }
         if (NamaKetua.getText().toString().isEmpty()) {
             NamaKetua.setError("Masukkan Nama Ketua");
             return false;
         }
-        if (Email.getText().toString().isEmpty()) {
-            Email.setError("Masukkan Email");
-            return false;
-        }
-        if (Password.getText().toString().length() < 8) {
-            Password.setError("Masukkan Password 8 Karakte");
-            return false;
-        }
-//        if (mDisplayDate.getText().toString().isEmpty()) {
-//            txtPeriode.setError("Masukkan Periode Magang");
-//            return false;
-//        }
-//        if (mDisplayDate1.getText().toString().isEmpty()) {
-//            txtPeriode.setError("Masukkan Periode Magang");
-//            return false;
-//
-//        }
+
         return true;
     }
 
     private void Registrasi() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_KELOMPOK, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);
 
-
                 if (object.getBoolean("success")) {
                     JSONObject user = object.getJSONObject("user");
+//                  JSONObject kelompok = object.getJSONObject("kelompok");
 
-                    //Menyimpan nilai email dan token di shared preferences
+//                  Menyimpan nilai email dan token di shared preferences
                     SharedPreferences userPref = getApplicationContext().getSharedPreferences
                             ("user", Regist_kel.MODE_PRIVATE);
                     SharedPreferences.Editor editor = userPref.edit();
+
+//                  Memasukkan nilai pada editor shared preferences (putString(database)) dan menampilkan data getString
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
+//                  editor.putInt("id_kelompok", kelompok.getInt("id"));
                     editor.apply();
 
                 } else {
@@ -207,22 +182,19 @@ public class Regist_kel extends AppCompatActivity {
         }, error -> Toast.makeText(Regist_kel.this, "Error" +error.toString(),
                 Toast.LENGTH_SHORT).show()) {
 
-
-
+//          Mengambil nilai parameter yang dikirim dari client ke server
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("universitas", Universitas.getText().toString().trim());
+                params.put("universitas", Univ.getText().toString().trim());
                 params.put("fakultas", Fakultas.getText().toString().trim());
                 params.put("prodi", Prodi.getText().toString().trim());
                 params.put("alamat_univ", Alamat.getText().toString().trim());
-                params.put("kelompok", Kelompok.getText().toString().trim());
+                params.put("kelompok", Kel.getText().toString().trim());
                 params.put("jumlah_anggota", Jumlah.getText().toString().trim());
                 params.put("periode_mulai", periodeMulai.getText().toString().trim());
                 params.put("periode_akhir", periodeAkhir.getText().toString().trim());
                 params.put("nama_ketua", NamaKetua.getText().toString().trim());
-                params.put("email", Email.getText().toString().trim());
-                params.put("password", Password.getText().toString().trim());
 
                 return params;
             }
@@ -241,7 +213,6 @@ public class Regist_kel extends AppCompatActivity {
             Toast.makeText(Regist_kel.this, "Registrasi Gagal!", Toast.LENGTH_SHORT).show();
         }
     }
-
     }
 
 

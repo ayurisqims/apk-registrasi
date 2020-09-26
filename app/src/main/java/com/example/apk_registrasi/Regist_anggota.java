@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Utils.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +38,7 @@ public class Regist_anggota extends AppCompatActivity {
     String jenisKelamin, keahlian;
     CheckBox UI, Web, Frontend, AndroidDev, Database;
 
-    private static String URLRegistAnggota = "http://192.168.100.174:80/api/registerAnggota";
+    private static String URLRegistAnggota = "http://192.168.43.209:80/api/registerAnggota";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +157,7 @@ public class Regist_anggota extends AppCompatActivity {
 
     private void Registrasi() {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URLRegistAnggota, response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_ANGGOTA, response -> {
 
                 try {
                     JSONObject object = new JSONObject(response);

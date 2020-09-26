@@ -2,6 +2,7 @@ package com.example.apk_registrasi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,34 +26,37 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Models.Anggota;
+import com.example.apk_registrasi.Models.Kelompok;
+import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class Data_kel extends Activity {
 
-    private String URL_Data_Kelompok = "http://192.168.100.174:80/api/data/";
+
     TextView Univ,Fakultas, Prodi, Alamat, Jumlah, Kel, PeriodeM, PeriodeA, NamaKetua;
+
     RequestQueue requestQueue;
     SharedPreferences userPref;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_kel);
 
-        userPref = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
         tampilData();
-        tombol();
+        init();
 
+//        Menampilkan BottomNavigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_nav);
         bottomNavigationView.setSelectedItemId(R.id.navigation_data);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -78,16 +82,18 @@ public class Data_kel extends Activity {
         });
     }
 
-    private void tombol() {
-        Univ = findViewById(R.id.txtJwbUniv);
-        Fakultas = findViewById(R.id.txtJwbFakultas);
-        Prodi = findViewById(R.id.txtJwbProdi);
-        Alamat = findViewById(R.id.txtJwbAlamat);
-        Jumlah = findViewById(R.id.txtJwbJumlah);
-        Kel = findViewById(R.id.txtJwbKel);
-        PeriodeM = findViewById(R.id.txtJwbPeriodM);
-        PeriodeA = findViewById(R.id.txtJwbPeriodA);
-        NamaKetua = findViewById(R.id.txtJwbNamaKetua);
+    private void init() {
+
+        userPref    = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
+        Univ        = findViewById(R.id.txtJwbUniv);
+        Fakultas    = findViewById(R.id.txtJwbFakultas);
+        Prodi       = findViewById(R.id.txtJwbProdi);
+        Alamat      = findViewById(R.id.txtJwbAlamat);
+        Jumlah      = findViewById(R.id.txtJwbJumlah);
+        Kel         = findViewById(R.id.txtJwbKel);
+        PeriodeM    = findViewById(R.id.txtJwbPeriodM);
+        PeriodeA    = findViewById(R.id.txtJwbPeriodA);
+        NamaKetua   = findViewById(R.id.txtJwbNamaKetua);
 
         Button tambahAnggota = findViewById(R.id.btnDetail);
         tambahAnggota.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +108,29 @@ public class Data_kel extends Activity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer id = userPref.getInt("id_kelompok", 0);
+                String universitas = userPref.getString("universitas", "");
+                String fakultas = userPref.getString("fakultas", "");
+                String prodi = userPref.getString("prodi", "");
+                String kelompok = userPref.getString("kelompok", "");
+                String alamat_univ = userPref.getString("alamat_univ", "");
+                String jumlah_anggota = userPref.getString("jumlah_anggota", "");
+                String periode_mulai = userPref.getString("periode_mulai", "");
+                String periode_akhir = userPref.getString("periode_akhir", "");
+                String nama_ketua = userPref.getString("nama_ketua", "");
+
+                Intent intent = new Intent(Data_kel.this, Edit_data_kel.class);
+                intent.putExtra("id", id.toString());
+                intent.putExtra("universitas", universitas);
+                intent.putExtra("fakultas", fakultas);
+                intent.putExtra("kelompok", kelompok);
+                intent.putExtra("prodi", prodi);
+                intent.putExtra("alamat_univ", alamat_univ);
+                intent.putExtra("jumlah_anggota", jumlah_anggota);
+                intent.putExtra("periode_mulai", periode_mulai);
+                intent.putExtra("periode_akhir", periode_akhir);
+                intent.putExtra("nama_ketua", nama_ketua);
+               startActivity(intent);
             }
         });
 
@@ -110,45 +139,41 @@ public class Data_kel extends Activity {
 //    Menampilkan data dengan JSONObject dan SharedPreferences
     private void tampilData() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Kelompok, response ->  {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DATA_KELOMPOK, response ->  {
 
                 try {
                     JSONObject jsonobject = new JSONObject(response);
 
                     JSONArray jsonArray = jsonobject.getJSONArray("data");
                     JSONObject data = jsonArray.getJSONObject(0);
+                    Log.i("autolog", "tampilData: Data");
 
-                    String StrUniv = data.getString("universitas");
-                    String StrFakultas = data.getString("fakultas");
-                    String StrProdi = data.getString("prodi");
-                    String StrAlamat = data.getString("alamat_univ");
-                    String StrKel = data.getString("kelompok");
-                    String StrJumlah = data.getString("jumlah_anggota");
-                    String StrPeriodeM = data.getString("periode_mulai");
-                    String StrPeriodeA = data.getString("periode_akhir");
-                    String StrNamaKetua = data.getString("nama_ketua");
+                    String universitas = data.getString("universitas");
+                    String fakultas = data.getString("fakultas");
+                    String prodi = data.getString("prodi");
+                    String alamatUniv = data.getString("alamat_univ");
+                    String kelompok = data.getString("kelompok");
+                    String jumlahAnggota = data.getString("jumlah_anggota");
+                    String periodeM = data.getString("periode_mulai");
+                    String periodeA = data.getString("periode_akhir");
+                    String namaKetua = data.getString("nama_ketua");
 
-                    Univ.setText(StrUniv);
-                    Fakultas.setText(StrFakultas);
-                    Prodi.setText(StrProdi);
-                    Alamat.setText(StrAlamat);
-                    Kel.setText(StrKel);
-                    Jumlah.setText(StrJumlah);
-                    PeriodeM.setText(StrPeriodeM);
-                    PeriodeA.setText(StrPeriodeA);
-                    NamaKetua.setText(StrNamaKetua);
-
+                    Univ.setText(universitas);
+                    Fakultas.setText(fakultas);
+                    Prodi.setText(prodi);
+                    Alamat.setText(alamatUniv);
+                    Kel.setText(kelompok);
+                    Jumlah.setText(jumlahAnggota);
+                    PeriodeM.setText(periodeM);
+                    PeriodeA.setText(periodeA);
+                    NamaKetua.setText(namaKetua);
 
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Data_kel.this, "Gagal", Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
+        }, error -> {
             }
-        }) {
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String token = userPref.getString("token", "");
@@ -181,7 +206,7 @@ public class Data_kel extends Activity {
 //    Membuat Method Logout
     private void logout() {
 
-    StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Kelompok, response -> {
+    StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DATA_KELOMPOK, response -> {
 
         try {
             JSONObject object = new JSONObject(response);
@@ -211,39 +236,4 @@ public class Data_kel extends Activity {
     requestQueue.add(stringRequest);
 
 }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.buttom_logout, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch ((item.getItemId())) {
-            case R.id.logout: {
-
-                AlertDialog.Builder alertDialogBuilder = new  AlertDialog.Builder(this);
-                alertDialogBuilder.setMessage("Apakah anda ingin keluar?");
-                alertDialogBuilder.setPositiveButton("Keluar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logout();
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialogBuilder.show();
-            }
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
 }

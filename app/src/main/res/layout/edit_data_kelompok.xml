@@ -15,10 +15,9 @@
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="REGISTRASI"
+        android:text="EDIT DATA KELOMPOK"
         android:textColor="@color/kode"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:textSize="21dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +26,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="400dp"
-        android:layout_height="680dp"
+        android:layout_height="600dp"
         android:layout_marginTop="48dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
@@ -291,89 +290,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNamaKetua"></com.google.android.material.textfield.TextInputEditText>
 
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="468dp"
-                android:text="@string/email"
-                android:textColor="@color/colorText"
+            <Button
+                android:id="@+id/btnSimpan"
+                style="bold"
+                android:layout_width="178dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="504dp"
+                android:background="@drawable/button2"
+                android:text="SIMPAN"
+                android:textAllCaps="false"
+                android:textColor="@color/kode"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.037"
+                app:layout_constraintHorizontal_bias="0.837"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputEmail"
-                style="@style/styleEditText"
-                android:layout_width="365dp"
-                android:layout_height="38dp"
-                android:background="@drawable/button1"
-                android:hint="Masukkan Email"
-                android:paddingLeft="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.363"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtEmail"></com.google.android.material.textfield.TextInputEditText>
-
-            <TextView
-                android:id="@+id/txtPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="524dp"
-                android:text="Password"
-                android:textColor="@color/colorText"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.037"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputPassword"
-                style="@style/styleEditText"
-                android:layout_width="365dp"
-                android:layout_height="38dp"
-                android:background="@drawable/button1"
-                android:inputType="textPassword"
-                android:hint="Masukkan Password"
-                android:paddingLeft="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.454"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPassword"></com.google.android.material.textfield.TextInputEditText>
-
-<!--            <Button-->
-<!--                android:id="@+id/btnTambah"-->
-<!--                android:layout_width="178dp"-->
-<!--                android:layout_height="27dp"-->
-<!--                android:layout_marginTop="588dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@drawable/button2"-->
-<!--                android:text="Tambah Anggota Kelompok"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:textColor="@color/kode"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.937"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <Button
-                android:id="@+id/btnSubmit"
+                android:id="@+id/btnBatal"
                 style="bold"
                 android:layout_width="162dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/button2"
-                android:text="Simpan"
+                android:text="Batal"
                 android:textColor="@color/kode"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.928"
+                app:layout_constraintHorizontal_bias="0.044"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -8,10 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,10 +27,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context context;
     ArrayList<Anggota> Anggota_item;
+    SharedPreferences userPref;
+
 
     public MyAdapter(Context context, ArrayList<Anggota> item_anggota) {
         this.context = context;
         this.Anggota_item = item_anggota;
+//        userPref = context.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -50,6 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Anggota list = Anggota_item.get(position);
         //Set text berdasarkan data dari model Anggota
 
+        holder.id = list.getId();
         holder.nama.setText(list.getNama());
         holder.nim.setText(list.getNim());
         holder.jenis_kelamin.setText(list.getJenis_kelamin());
@@ -59,6 +67,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.alamat.setText(list.getAlamat());
         holder.keahlian.setText(list.getKeahlian());
         //holder.BidangMinat.setText(list.getBidang_minat());
+
+//        if (list.getNama().getId()==userPref.getInt("id", 0)){
+//            holder.Edit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//        bidangminat = "";
+//        if(btnAndroid.isChecked()) {
+//            bidangminat = bidangminat+",android";
+//        }
+//        if(btnWeb.isChecked()) {
+//            bidangminat = bidangminat+",web"
+//        }
+
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -69,7 +93,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        String id;
         TextView nama, nim, jenis_kelamin, noHp, email, sosmed, alamat, keahlian, bidangMinat;
+        Button Edit, Hapus;
         public LinearLayout linearLayout;
         public RelativeLayout relativeLayout;
 

@@ -4,9 +4,16 @@ import android.widget.TextView;
 
 public class Anggota {
 
+    String id;
     String nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian;
 
+   public Anggota(String id) {
+        this.id = id;
+    }
+
     public Anggota(String nama, String nim, String jenis_kelamin, String no_hp, String email_anggota, String sosmed, String alamat, String keahlian) {
+
+
         this.nama = nama;
         this.nim = nim;
         this.jenis_kelamin = jenis_kelamin;
@@ -15,6 +22,14 @@ public class Anggota {
         this.sosmed = sosmed;
         this.alamat = alamat;
         this.keahlian = keahlian;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama() {

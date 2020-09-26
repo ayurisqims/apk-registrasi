@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.apk_registrasi.Models.Anggota;
+import com.example.apk_registrasi.Utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,7 @@ import java.util.Map;
 
 public class Data_anggota extends AppCompatActivity{
 
-    private String URL_Data_Anggota = "http://192.168.100.174:80/api/data_anggota/";
+
     private LinearLayoutManager layoutManager;
 
     private RecyclerView.Adapter adapter;
@@ -81,15 +82,15 @@ public class Data_anggota extends AppCompatActivity{
 
     private void tombol() {
 
-        Nama = findViewById(R.id.txtJwbNama);
-        Nim = findViewById(R.id.txtJwbNIM);
-        JenisKelamin = findViewById(R.id.txtJwbJenisKelamin);
-        NoHp = findViewById(R.id.txtJwbNoHp);
-        Email = findViewById(R.id.txtJwbEmail);
-        Sosmed = findViewById(R.id.txtJwbSosmed);
-        Alamat = findViewById(R.id.txtJwbAlamat);
-        Keahlian = findViewById(R.id.txtJwbKeahlian);
-        BidangMinat = findViewById(R.id.txtJwbBidangMinat);
+        Nama               = findViewById(R.id.txtJwbNama);
+        Nim                = findViewById(R.id.txtJwbNIM);
+        JenisKelamin       = findViewById(R.id.txtJwbJenisKelamin);
+        NoHp               = findViewById(R.id.txtJwbNoHp);
+        Email              = findViewById(R.id.txtJwbEmail);
+        Sosmed             = findViewById(R.id.txtJwbSosmed);
+        Alamat             = findViewById(R.id.txtJwbAlamat);
+        Keahlian           = findViewById(R.id.txtJwbKeahlian);
+        BidangMinat        = findViewById(R.id.txtJwbBidangMinat);
 
         ImageButton tambah = findViewById(R.id.btnTambah);
         tambah.setOnClickListener(v -> {
@@ -100,7 +101,7 @@ public class Data_anggota extends AppCompatActivity{
 
     private void tampilData() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_Data_Anggota, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DATA_ANGGOTA, response -> {
 
             try {
                 JSONObject jsonobject = new JSONObject(response);
@@ -150,6 +151,7 @@ public class Data_anggota extends AppCompatActivity{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                Log.i("autolog", Nama.getText().toString());
                 params.put("nama", Nama.getText().toString());
                 params.put("nim", Nim.getText().toString());
                 params.put("no_hp", NoHp.getText().toString());

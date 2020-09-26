@@ -37,6 +37,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
@@ -64,9 +65,6 @@ import okhttp3.Response;
 public class Upload extends AppCompatActivity {
 
 
-//    private static final java.util.UUID UUID = ;
-    private String URL_UPLOAD = "http://192.168.100.174:80/api/file/";
-    private String URL_LOGOUT = "http://192.168.100.174:80/api/logout/";
     private static final int PERMISSION_REQUEST_CODE = 1;
 
     //storage permission code
@@ -278,11 +276,9 @@ public class Upload extends AppCompatActivity {
 //        }
 //    }
 
-
-
     //    Membuat method logout
     private void logout() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_LOGOUT, response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_LOGOUT, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);
