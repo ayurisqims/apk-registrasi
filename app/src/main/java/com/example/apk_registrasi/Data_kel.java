@@ -1,33 +1,24 @@
 package com.example.apk_registrasi;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.apk_registrasi.Models.Anggota;
-import com.example.apk_registrasi.Models.Kelompok;
 import com.example.apk_registrasi.Utils.Constant;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,7 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +34,6 @@ public class Data_kel extends Activity {
 
 
     TextView Univ,Fakultas, Prodi, Alamat, Jumlah, Kel, PeriodeM, PeriodeA, NamaKetua;
-
     RequestQueue requestQueue;
     SharedPreferences userPref;
 
@@ -53,7 +42,7 @@ public class Data_kel extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_kel);
 
-        tampilData();
+        tampil_data();
         init();
 
 //        Menampilkan BottomNavigation
@@ -84,7 +73,7 @@ public class Data_kel extends Activity {
 
     private void init() {
 
-        userPref    = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
+        userPref    = getSharedPreferences("user", MODE_PRIVATE);
         Univ        = findViewById(R.id.txtJwbUniv);
         Fakultas    = findViewById(R.id.txtJwbFakultas);
         Prodi       = findViewById(R.id.txtJwbProdi);
@@ -95,8 +84,8 @@ public class Data_kel extends Activity {
         PeriodeA    = findViewById(R.id.txtJwbPeriodA);
         NamaKetua   = findViewById(R.id.txtJwbNamaKetua);
 
-        Button tambahAnggota = findViewById(R.id.btnDetail);
-        tambahAnggota.setOnClickListener(new View.OnClickListener() {
+        Button detailAnggota = findViewById(R.id.btnDetail);
+        detailAnggota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Data_kel.this, Data_anggota.class);
@@ -130,14 +119,14 @@ public class Data_kel extends Activity {
                 intent.putExtra("periode_mulai", periode_mulai);
                 intent.putExtra("periode_akhir", periode_akhir);
                 intent.putExtra("nama_ketua", nama_ketua);
-               startActivity(intent);
+                startActivity(intent);
             }
         });
 
     }
 
 //    Menampilkan data dengan JSONObject dan SharedPreferences
-    private void tampilData() {
+    private void tampil_data() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DATA_KELOMPOK, response ->  {
 
@@ -151,22 +140,22 @@ public class Data_kel extends Activity {
                     String universitas = data.getString("universitas");
                     String fakultas = data.getString("fakultas");
                     String prodi = data.getString("prodi");
-                    String alamatUniv = data.getString("alamat_univ");
+                    String alamat_univ = data.getString("alamat_univ");
                     String kelompok = data.getString("kelompok");
-                    String jumlahAnggota = data.getString("jumlah_anggota");
-                    String periodeM = data.getString("periode_mulai");
-                    String periodeA = data.getString("periode_akhir");
-                    String namaKetua = data.getString("nama_ketua");
+                    String jumlah_anggota = data.getString("jumlah_anggota");
+                    String periode_mulai = data.getString("periode_mulai");
+                    String periode_akhir = data.getString("periode_akhir");
+                    String nama_ketua = data.getString("nama_ketua");
 
                     Univ.setText(universitas);
                     Fakultas.setText(fakultas);
                     Prodi.setText(prodi);
-                    Alamat.setText(alamatUniv);
+                    Alamat.setText(alamat_univ);
                     Kel.setText(kelompok);
-                    Jumlah.setText(jumlahAnggota);
-                    PeriodeM.setText(periodeM);
-                    PeriodeA.setText(periodeA);
-                    NamaKetua.setText(namaKetua);
+                    Jumlah.setText(jumlah_anggota);
+                    PeriodeM.setText(periode_mulai);
+                    PeriodeA.setText(periode_akhir);
+                    NamaKetua.setText(nama_ketua);
 
                 } catch (JSONException e){
                     e.printStackTrace();

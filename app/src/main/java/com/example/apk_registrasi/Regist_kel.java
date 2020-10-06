@@ -8,7 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +37,9 @@ public class Regist_kel extends AppCompatActivity {
     private static final String TAG = "Regist_kel";
 
     DatePickerDialog.OnDateSetListener mDateSetListener, mDateSetListener1;
-    TextInputEditText Univ,Fakultas, Prodi, Alamat, Jumlah, Kel,  NamaKetua;
-    TextView periodeMulai,periodeAkhir;
+    TextInputEditText Univ,Fakultas, Prodi, Alamat, Jumlah, Email, Password, NamaKetua;
+    TextView PeriodeMulai,PeriodeAkhir;
+    String Kelompok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,11 @@ public class Regist_kel extends AppCompatActivity {
         Prodi           = findViewById(R.id.inputProdi);
         Alamat          = findViewById(R.id.inputAlamat);
         Jumlah          = findViewById(R.id.inputJumlah);
-        Kel             = findViewById(R.id.inputKelompok);
-        periodeMulai    = findViewById(R.id.txtPeriodM);
-        periodeAkhir    = findViewById(R.id.txtPerioA);
+        PeriodeMulai    = findViewById(R.id.txtPeriodM);
+        PeriodeAkhir    = findViewById(R.id.txtPerioA);
         NamaKetua       = findViewById(R.id.inputNama);
+        Email           = findViewById(R.id.inputEmail);
+        Password        = findViewById(R.id.inputPassword);
 
         Button submit = findViewById(R.id.btnSubmit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +68,8 @@ public class Regist_kel extends AppCompatActivity {
             public void onClick(View v) {
 
                if (validate()){
-                   Registrasi();
+                   registrasi();
+
                }
             }
         });
@@ -114,6 +120,33 @@ public class Regist_kel extends AppCompatActivity {
             mDisplayDateAkhir.setText(date);
         };
 
+        Spinner spinnerKel = findViewById(R.id.spinnerKel);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.kelompok, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKel.setAdapter(adapter);
+
+        spinnerKel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Kelompok = parent.getItemAtPosition(position).toString();
+//                Intent i = new Intent(Regist_kel.this, Edit_data_kel.class);
+//                Bundle bundleKel = new Bundle();
+//                bundleKel.putString("SpinnerValue", spinnerKel.getSelectedItem().toString());
+//                i.putExtras(bundleKel);
+//
+                Kelompok = spinnerKel.getSelectedItem().toString();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Kelompok = "";
+            }
+        });
+
     }
 
     private boolean validate(){
@@ -138,10 +171,6 @@ public class Regist_kel extends AppCompatActivity {
             Jumlah.setError("Masukkan Jumlah Anggota Kelompok");
             return false;
         }
-        if (Kel.getText().toString().isEmpty()) {
-            Kel.setError("Masukkan Urutan Kelompok");
-            return false;
-        }
         if (NamaKetua.getText().toString().isEmpty()) {
             NamaKetua.setError("Masukkan Nama Ketua");
             return false;
@@ -150,7 +179,7 @@ public class Regist_kel extends AppCompatActivity {
         return true;
     }
 
-    private void Registrasi() {
+    private void registrasi() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_KELOMPOK, response -> {
 
@@ -159,7 +188,6 @@ public class Regist_kel extends AppCompatActivity {
 
                 if (object.getBoolean("success")) {
                     JSONObject user = object.getJSONObject("user");
-//                  JSONObject kelompok = object.getJSONObject("kelompok");
 
 //                  Menyimpan nilai email dan token di shared preferences
                     SharedPreferences userPref = getApplicationContext().getSharedPreferences
@@ -169,7 +197,7 @@ public class Regist_kel extends AppCompatActivity {
 //                  Memasukkan nilai pada editor shared preferences (putString(database)) dan menampilkan data getString
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
-//                  editor.putInt("id_kelompok", kelompok.getInt("id"));
+
                     editor.apply();
 
                 } else {
@@ -190,11 +218,14 @@ public class Regist_kel extends AppCompatActivity {
                 params.put("fakultas", Fakultas.getText().toString().trim());
                 params.put("prodi", Prodi.getText().toString().trim());
                 params.put("alamat_univ", Alamat.getText().toString().trim());
-                params.put("kelompok", Kel.getText().toString().trim());
+                params.put("kelompok", Kelompok);
                 params.put("jumlah_anggota", Jumlah.getText().toString().trim());
-                params.put("periode_mulai", periodeMulai.getText().toString().trim());
-                params.put("periode_akhir", periodeAkhir.getText().toString().trim());
+                params.put("periode_mulai", PeriodeMulai.getText().toString().trim());
+                params.put("periode_akhir", PeriodeAkhir.getText().toString().trim());
                 params.put("nama_ketua", NamaKetua.getText().toString().trim());
+                params.put("email", Email.getText().toString().trim());
+                params.put("password", Password.getText().toString().trim());
+                Log.i("Regist_kel", "getParams: "+params);
 
                 return params;
             }

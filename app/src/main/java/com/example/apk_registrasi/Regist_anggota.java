@@ -33,12 +33,10 @@ public class Regist_anggota extends AppCompatActivity {
 
 
     EditText Nama, NIM, NO, Email, Sosmed, Alamat;
-    Spinner JenisKelamin, BidangMinat;
+    Spinner JenisKelamin, Keahlian;
     SharedPreferences userPref;
-    String jenisKelamin, keahlian;
+    String jenis_kelamin, keahlian;
     CheckBox UI, Web, Frontend, AndroidDev, Database;
-
-    private static String URLRegistAnggota = "http://192.168.43.209:80/api/registerAnggota";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +56,17 @@ public class Regist_anggota extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-              jenisKelamin = parent.getItemAtPosition(position).toString();
+              jenis_kelamin = parent.getItemAtPosition(position).toString();
+              jenis_kelamin = spinnerJK.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                jenisKelamin = "";
+                jenis_kelamin = "";
             }
         });
+
+        CharSequence spinnerJKSelectedData  = (CharSequence) spinnerJK.getSelectedItem();
 
         Spinner spinnerK = findViewById(R.id.spinnerKeahlian);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
@@ -99,28 +100,27 @@ public class Regist_anggota extends AppCompatActivity {
 
     private void initRegister() {
 
-        userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-
-        Nama = findViewById(R.id.editNama);
-        NIM = findViewById(R.id.editNIM);
-        NO = findViewById(R.id.editNO);
-        Email = findViewById(R.id.editEmail);
-        Alamat = findViewById(R.id.editAlamat);
-        Sosmed = findViewById(R.id.editSosmed);
+        userPref    = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        Nama        = findViewById(R.id.editNama);
+        NIM         = findViewById(R.id.editNIM);
+        NO          = findViewById(R.id.editNO);
+        Email       = findViewById(R.id.editEmail);
+        Alamat      = findViewById(R.id.editAlamat);
+        Sosmed      = findViewById(R.id.editSosmed);
         JenisKelamin = findViewById(R.id.spinner);
-        BidangMinat = findViewById(R.id.spinnerKeahlian);
-        UI = findViewById(R.id.cbUI);
-        Web = findViewById(R.id.cbWeb);
-        Frontend = findViewById(R.id.cbFrontend);
-        Database = findViewById(R.id.cbDatabase);
-        AndroidDev = findViewById(R.id.cbAndroid);
+        Keahlian    = findViewById(R.id.spinnerKeahlian);
+        UI          = findViewById(R.id.cbUI);
+        Web         = findViewById(R.id.cbWeb);
+        Frontend    = findViewById(R.id.cbFrontend);
+        Database    = findViewById(R.id.cbDatabase);
+        AndroidDev  = findViewById(R.id.cbAndroid);
 
         Button simpan = findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validate()){
-                    Registrasi();
+                    registrasi();
 
                 }
             }
@@ -155,7 +155,7 @@ public class Regist_anggota extends AppCompatActivity {
         return true;
     }
 
-    private void Registrasi() {
+    private void registrasi() {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_ANGGOTA, response -> {
 
@@ -193,7 +193,7 @@ public class Regist_anggota extends AppCompatActivity {
                     params.put("nim", NIM.getText().toString());
                     params.put("no_hp", NO.getText().toString());
                     params.put("sosmed", Sosmed.getText().toString());
-                    params.put("jenis_kelamin", jenisKelamin);
+                    params.put("jenis_kelamin", jenis_kelamin);
                     params.put("keahlian", keahlian);
                     params.put("email_anggota", Email.getText().toString());
                     params.put("alamat", Alamat.getText().toString());

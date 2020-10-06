@@ -200,17 +200,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputKelompok"
-                style="@style/styleEditText"
-                android:layout_width="365dp"
-                android:layout_height="38dp"
+            <Spinner
+                android:id="@+id/spinnerKel"
+                android:layout_width="356dp"
+                android:layout_height="37dp"
                 android:background="@drawable/button1"
-                android:hint="Kelompok -"
+                android:entries="@array/kelompok"
                 android:paddingLeft="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.37"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtKelompok"></com.google.android.material.textfield.TextInputEditText>
+                app:layout_constraintTop_toBottomOf="@+id/txtKelompok"
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/txtPeriodeMagang"

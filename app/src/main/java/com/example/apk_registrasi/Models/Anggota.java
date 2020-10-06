@@ -7,7 +7,7 @@ public class Anggota {
     String id;
     String nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian;
 
-   public Anggota(String id) {
+    public Anggota(String id) {
         this.id = id;
     }
 

@@ -8,7 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +37,9 @@ import java.util.Map;
 
 public class Edit_data_kel extends AppCompatActivity {
 
-    private ArrayList<Anggota> list;
-    private String id;
-    private TextInputEditText Univ,Fakultas, Prodi, Alamat, Jumlah, Kel, NamaKetua;
-    private TextView PeriodeMulai,PeriodeAkhir;
+    private String id_kelompok;
+    private TextInputEditText Univ, Fakultas, Prodi, Alamat, Jumlah, NamaKetua, PeriodeMulai, PeriodeAkhir, Kelompok;
 
-    RequestQueue requestQueue;
     SharedPreferences userPref;
 
     @Override
@@ -52,24 +52,25 @@ public class Edit_data_kel extends AppCompatActivity {
 
     private void init() {
 
-        userPref = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
-        Univ = findViewById(R.id.inputUniv);
-        Fakultas = findViewById(R.id.inputFakultas);
-        Prodi = findViewById(R.id.inputProdi);
-        Alamat = findViewById(R.id.inputAlamat);
-        Jumlah = findViewById(R.id.inputJumlah);
-        Kel = findViewById(R.id.inputKelompok);
-        NamaKetua = findViewById(R.id.inputNama);
-        PeriodeMulai = findViewById(R.id.txtPeriodM);
-        PeriodeAkhir = findViewById(R.id.txtPerioA);
+        userPref    = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
+        Univ        = findViewById(R.id.inputUniv);
+        Fakultas    = findViewById(R.id.inputFakultas);
+        Prodi       = findViewById(R.id.inputProdi);
+        Alamat      = findViewById(R.id.inputAlamat);
+        Jumlah      = findViewById(R.id.inputJumlah);
+        Kelompok    = findViewById(R.id.spinnerKel);
+        NamaKetua   = findViewById(R.id.inputNama);
+        PeriodeMulai = findViewById(R.id.inputPeriodeM);
+        PeriodeAkhir = findViewById(R.id.inputPeriodeA);
 
-        id = getIntent().getStringExtra("id");
+        id_kelompok = getIntent().getStringExtra("id");
         Univ.setText(getIntent().getStringExtra("universitas"));
         Fakultas.setText(getIntent().getStringExtra("fakultas"));
         Prodi.setText(getIntent().getStringExtra("prodi"));
         Alamat.setText(getIntent().getStringExtra("alamat_univ"));
         Jumlah.setText(getIntent().getStringExtra("jumlah_anggota"));
-        Kel.setText(getIntent().getStringExtra("kelompok"));
+
+        Kelompok.setText(getIntent().getStringExtra("kelompok"));
         NamaKetua.setText(getIntent().getStringExtra("nama_ketua"));
         PeriodeMulai.setText(getIntent().getStringExtra("periode_mulai"));
         PeriodeAkhir.setText(getIntent().getStringExtra("periode_akhir"));
@@ -106,7 +107,8 @@ public class Edit_data_kel extends AppCompatActivity {
                     Intent intent = new Intent(Edit_data_kel.this, Data_kel.class);
                     startActivity(intent);
                 } else if(!object.getBoolean("success")) {
-                    Toast.makeText(Edit_data_kel.this, "Update Gagal!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Edit_data_kel.this, "Update Gagal!",
+                            Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e){
 
@@ -126,12 +128,12 @@ public class Edit_data_kel extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", id + "");
+                params.put("id", id_kelompok + "");
                 params.put("universitas", Univ.getText().toString().trim());
                 params.put("fakultas", Fakultas.getText().toString().trim());
                 params.put("prodi", Prodi.getText().toString().trim());
                 params.put("alamat_univ", Alamat.getText().toString().trim());
-                params.put("kelompok", Kel.getText().toString().trim());
+                params.put("kelompok", Kelompok.getText().toString().trim());
                 params.put("jumlah_anggota", Jumlah.getText().toString().trim());
                 params.put("periode_mulai", PeriodeMulai.getText().toString().trim());
                 params.put("periode_akhir", PeriodeAkhir.getText().toString().trim());

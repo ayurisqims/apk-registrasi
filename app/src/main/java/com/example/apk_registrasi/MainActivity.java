@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
                     editor.putInt("id_kelompok", kelompok.getInt("id"));
+//                    editor.putInt("id", data.getInt("id"));
                     editor.putString("universitas", kelompok.getString("universitas"));
                     editor.putString("fakultas", kelompok.getString("fakultas"));
                     editor.putString("prodi", kelompok.getString("prodi"));
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("periode_mulai", kelompok.getString("periode_mulai"));
                     editor.putString("periode_akhir", kelompok.getString("periode_akhir"));
                     editor.putString("nama_ketua", kelompok.getString("nama_ketua"));
+
                     editor.apply();
                     Log.i("login", "Login: putString");
 

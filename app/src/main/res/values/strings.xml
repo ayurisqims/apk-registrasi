@@ -49,4 +49,13 @@
         <item>Frontend</item>
         <item>Database</item>
     </string-array>
+
+    <string-array name="kelompok">
+        <item> - </item>
+        <item>Kelompok 1</item>
+        <item>Kelompok 2</item>
+        <item>Kelompok 3</item>
+        <item>Kelompok 4</item>
+        <item>Kelompok 5</item>
+    </string-array>
 </resources>

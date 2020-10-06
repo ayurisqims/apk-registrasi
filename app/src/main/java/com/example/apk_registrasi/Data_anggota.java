@@ -37,23 +37,22 @@ import java.util.Map;
 public class Data_anggota extends AppCompatActivity{
 
 
-    private LinearLayoutManager layoutManager;
-
     private RecyclerView.Adapter adapter;
     private RecyclerView rvDataAnggota;
     List<Anggota> Anggota_item;
 
-    SharedPreferences userPref;
+    SharedPreferences userPref1;
     RequestQueue requestQueue;
     TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
+    Button Edit, Hapus;
     private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycyler_view);
+        setContentView(R.layout.activity_recycler_view);
 
-        userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        userPref1 = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
 //        Recycler View
         Anggota_item = new ArrayList<>();
@@ -76,7 +75,7 @@ public class Data_anggota extends AppCompatActivity{
         Log.i(TAG, "onCreate: ");
 
         tombol();
-        tampilData();
+        tampil_data();
 
     }
 
@@ -91,15 +90,33 @@ public class Data_anggota extends AppCompatActivity{
         Alamat             = findViewById(R.id.txtJwbAlamat);
         Keahlian           = findViewById(R.id.txtJwbKeahlian);
         BidangMinat        = findViewById(R.id.txtJwbBidangMinat);
+        Edit               = findViewById(R.id.btnEdit);
 
         ImageButton tambah = findViewById(R.id.btnTambah);
         tambah.setOnClickListener(v -> {
             Intent tambah1 = new Intent(Data_anggota.this, Regist_anggota.class);
             startActivity(tambah1);
         });
+//        Button edit = findViewById(R.id.btnEdit);
+//        edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////
+////                String nama = userPref.getString("nama", "");
+////                String nim = userPref.getString("nim", "");
+////                String jenis_kelamin = userPref.getString("jenis_kelamin", "");
+////                String no_hp = userPref.getString("no_hp", "");
+////                String email_anggota = userPref.getString("email_anggota", "");
+////                String sosmed = userPref.getString("sosmed", "");
+////                String alamat = userPref.getString("alamat", "");
+////                String keahlian = userPref.getString("keahlian", "");
+////                String bidang_minat = userPref.getString("bidang_minat", "");
+//
+//            }
+//        });
     }
 
-    private void tampilData() {
+    private void tampil_data() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DATA_ANGGOTA, response -> {
 
@@ -121,7 +138,7 @@ public class Data_anggota extends AppCompatActivity{
                     String alamat = data.getString("alamat");
                     String keahlian = data.getString("keahlian");
 //                  String bidang_minat = data.getString("bidang_minat");
-                    Log.i("string", "tampilData: ");
+                    Log.i("string", "tampilData: "+nama);
 
                     Anggota anggota = new Anggota(nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian);
                     Anggota_item.add(anggota);
@@ -141,9 +158,10 @@ public class Data_anggota extends AppCompatActivity{
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = userPref.getString("token", "");
+                String token = userPref1.getString("token", "");
                 HashMap<String, String> params = new HashMap<>();
                 params.put("Authorization", "Bearer" + token);
+                Log.i(TAG, "getHeaders: sukses");
 
                 return params;
             }
@@ -160,7 +178,8 @@ public class Data_anggota extends AppCompatActivity{
                 params.put("keahlian", Keahlian.getText().toString());
                 params.put("email_anggota", Email.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
-//                params.put("bidang_minat", BidangMinat.getText().toString());
+//              params.put("bidang_minat", BidangMinat.getText().toString());
+                Log.i(TAG, "getParams: "+params);
                 return params;
             }
 
