@@ -7,9 +7,13 @@ package com.example.apk_registrasi;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,23 +24,37 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.apk_registrasi.Models.Anggota;
+import com.example.apk_registrasi.Utils.Constant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.security.auth.login.LoginException;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context mcontext;
+    int position = 0, id;
     ArrayList<Anggota> Anggota_item;
-//    SharedPreferences sharedPreferences;
+
+    SharedPreferences userPref;
+    RequestQueue requestQueue;
 
 
     public MyAdapter(Context context, ArrayList<Anggota> item_anggota) {
         this.mcontext = context;
         this.Anggota_item = item_anggota;
-//      sharedPreferences = mcontext.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        userPref = mcontext.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -45,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             View holder berisi tampilan informasi untuk menampilkan satu item dari layout item.
         */
         String id;
-        TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
+        TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian;
         Button Edit, Hapus;
         public RelativeLayout relativeLayout;
 
@@ -64,8 +82,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             //bidangMinat = ItemView.findViewById(R.id.txtJwbBidangMinat);
             relativeLayout = ItemView.findViewById(R.id.rl);
             Edit = ItemView.findViewById(R.id.btnEdit);
-            Hapus = ItemView.findViewById(R.id.btnHapus);
+            Hapus = ItemView.findViewById(R.id.btnHapusAnggota);
             this.Edit = itemView.findViewById(R.id.btnEditAnggota);
+            this.Hapus = itemView.findViewById(R.id.btnHapusAnggota);
+
 
         }
     }
@@ -92,11 +112,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Anggota list = Anggota_item.get(position);
         //Set text berdasarkan data dari model Anggota
 
-        holder.Nama.setText(Anggota_item.get(position).getNama());
-        Log.i("MyAdapter", "onBindViewHolder:nama ");
-
         holder.id = list.getId();
-//        holder.Nama.setText(list.getNama());
+        holder.Nama.setText(list.getNama());
         holder.Nim.setText(list.getNim());
         holder.JenisKelamin.setText(list.getJenis_kelamin());
         holder.NoHp.setText(list.getNo_hp());
@@ -104,7 +121,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.Sosmed.setText(list.getSosmed());
         holder.Alamat.setText(list.getAlamat());
         holder.Keahlian.setText(list.getKeahlian());
-        Log.i("MyAdapter", "Intent ");
+        Log.i("MyAdapter", "Intent "+holder);
 
         //holder.BidangMinat.setText(list.getBidang_minat());
 
@@ -129,8 +146,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public void onClick(View v) {
 
             Intent intent = new Intent(mcontext, Edit_data_anggota.class);
-
-
             intent.putExtra("id", list.getId());
             intent.putExtra("position", position);
             intent.putExtra("nama", list.getNama());
@@ -144,8 +159,72 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //          intent.putExtra("bidang_minat", bidang_minat);
             Log.i("MyAdapter", "onClick: intent edit ");
             mcontext.startActivity(intent);
-        }
-    });
+        }});
+
+        holder.Hapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hapus_anggota();
+            }});
+    }
+
+    private void hapus_anggota() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
+        builder.setTitle("Hapus Data Anggota");
+        builder.setMessage("Hapus Data");
+        builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
+
+                    try{
+                        JSONObject object = new JSONObject(response);
+                        if (object.getBoolean("success")){
+                            Anggota_item.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemChanged(position);
+                            notifyDataSetChanged();
+                            Intent intent = new Intent(mcontext, Data_anggota.class);
+                            intent.setType(Settings.ACTION_SYNC_SETTINGS);
+                            mcontext.startActivity(intent);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }, error -> {
+
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        String token = userPref.getString("token", "");
+                        HashMap<String,String> params = new HashMap<>();
+                        params.put("Authorization", "Bearer"+token);
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String,String> params = new HashMap<>();
+                        params.put("id", id+"");
+                        Log.i("MyAdapter","onClick: "+params);
+                        return params;
+                    }
+                };
+
+                requestQueue = Volley.newRequestQueue(mcontext);
+                requestQueue.add(stringRequest);
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 
     @Override

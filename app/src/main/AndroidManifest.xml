@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyAdapter2"/>
+        <activity android:name=".MySoalAdapter"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

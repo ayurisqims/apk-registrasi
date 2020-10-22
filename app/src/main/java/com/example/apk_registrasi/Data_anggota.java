@@ -45,7 +45,7 @@ public class Data_anggota extends AppCompatActivity{
     RequestQueue requestQueue;
     TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
     Button Edit, Hapus;
-    private String TAG;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,6 @@ public class Data_anggota extends AppCompatActivity{
 
 //        Recycler View
         Anggota_item = new ArrayList<>();
-
         rvDataAnggota = findViewById(R.id.recycler_view);
 
         // use a linear layout manager
@@ -72,7 +71,7 @@ public class Data_anggota extends AppCompatActivity{
         adapter = new MyAdapter(Data_anggota.this, (ArrayList<Anggota>) Anggota_item);
         rvDataAnggota.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        Log.i(TAG, "onCreate: ");
+        Log.i("Data_anggota", "onCreate: ");
 
         tombol();
         tampil_data();
@@ -161,7 +160,7 @@ public class Data_anggota extends AppCompatActivity{
                 String token = userPref1.getString("token", "");
                 HashMap<String, String> params = new HashMap<>();
                 params.put("Authorization", "Bearer" + token);
-                Log.i(TAG, "getHeaders: sukses");
+                Log.i("Data_anggota", "getHeaders: sukses");
 
                 return params;
             }
@@ -169,7 +168,7 @@ public class Data_anggota extends AppCompatActivity{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                Log.i("autolog", Nama.getText().toString());
+
                 params.put("nama", Nama.getText().toString());
                 params.put("nim", Nim.getText().toString());
                 params.put("no_hp", NoHp.getText().toString());
@@ -179,7 +178,7 @@ public class Data_anggota extends AppCompatActivity{
                 params.put("email_anggota", Email.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
 //              params.put("bidang_minat", BidangMinat.getText().toString());
-                Log.i(TAG, "getParams: "+params);
+                Log.i("Data_anggota", "getParams: "+params);
                 return params;
             }
 

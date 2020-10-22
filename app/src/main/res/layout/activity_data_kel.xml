@@ -89,7 +89,6 @@
                             android:layout_marginLeft="72dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Politeknik"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -118,7 +117,6 @@
                             android:layout_marginLeft="99dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Teknik"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -148,7 +146,6 @@
                             android:layout_marginLeft="125dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Teknologi "
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -178,7 +175,6 @@
                             android:layout_marginLeft="12dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="Madiun"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -208,7 +204,6 @@
                             android:layout_marginLeft="48dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="6"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -238,7 +233,6 @@
                             android:layout_marginLeft="100dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="3"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -247,7 +241,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
-
                         <TextView
                             android:id="@+id/txtPeriodM"
                             style="@style/styleEditText"
@@ -268,7 +261,6 @@
                             android:layout_marginLeft="57dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="2020-"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -298,7 +290,6 @@
                             android:layout_marginLeft="57dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="2020-"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -328,7 +319,6 @@
                             android:layout_marginLeft="83dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="irfani"
                             android:textColor="@color/colorText"
                             android:textSize="15sp" />
                     </LinearLayout>

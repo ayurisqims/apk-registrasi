@@ -2,12 +2,11 @@ package com.example.apk_registrasi.Models;
 
 public class Soal {
 
-    String id, item, keterangan;
+    String id, item;
 
-    public Soal(String id, String item, String keterangan) {
+    public Soal(String id, String item) {
         this.id = id;
         this.item = item;
-        this.keterangan = keterangan;
     }
 
     public String getId() {
@@ -26,11 +25,4 @@ public class Soal {
         this.item = item;
     }
 
-    public String getKeterangan() {
-        return keterangan;
-    }
-
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
-    }
 }

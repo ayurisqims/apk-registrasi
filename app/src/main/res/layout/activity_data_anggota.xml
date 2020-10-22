@@ -47,11 +47,10 @@
                         android:id="@+id/txtJwbNama"
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="72dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="124dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Ayu Risqi"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -78,10 +77,9 @@
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="99dp"
+                        android:layout_marginLeft="134dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Teknik"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -108,10 +106,9 @@
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="48dp"
+                        android:layout_marginLeft="46dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Perempuan"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -138,10 +135,9 @@
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="38dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="089798090"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -168,10 +164,9 @@
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="57dp"
+                        android:layout_marginLeft="48dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="ayurisqi73@gmail.com"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -196,12 +191,11 @@
                     <TextView
                         android:id="@+id/txtJwbSosmed"
                         style="@style/styleTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginLeft="56dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="ayurisqi"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -228,10 +222,9 @@
                         style="@style/styleTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="57dp"
+                        android:layout_marginLeft="40dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Madiun"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -256,12 +249,11 @@
                     <TextView
                         android:id="@+id/txtJwbKeahlian"
                         style="@style/styleTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginLeft="92dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="UI/UX"
                         android:textColor="@color/colorText"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -286,9 +278,9 @@
                     <TextView
                         android:id="@+id/txtJwbBidangMinat"
                         style="@style/styleTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="83dp"
+                        android:layout_marginLeft="57dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:text="UI/UX"
@@ -317,7 +309,7 @@
                         android:textSize="15sp" />
 
                     <Button
-                        android:id="@+id/btnHapus"
+                        android:id="@+id/btnHapusAnggota"
                         android:layout_width="68dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="5dp"

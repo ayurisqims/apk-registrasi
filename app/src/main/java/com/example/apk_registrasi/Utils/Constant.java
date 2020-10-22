@@ -7,8 +7,9 @@ public class Constant {
     public static final String URL_REGIST_ANGGOTA = URL+"/registerAnggota/";
     public static final String URL_DATA_KELOMPOK = URL+"/data/";
     public static final String URL_DATA_ANGGOTA = URL+"/data_anggota/";
+    public static final String URL_DELETE_ANGGOTA = URL_DATA_ANGGOTA+"/delete/";
     public static final String URL_UPLOAD = URL+"/file/";
-    public static final String URL_DOWNLOAD = URL+"/download/";
+    public static final String URL_DOWNLOAD = URL+"/soal/";
     public static final String URL_UPDATE_DATA_KELOMPOK = URL_DATA_KELOMPOK+"update/";
     public static final String URL_UPDATE_DATA_ANGGOTA = URL_DATA_ANGGOTA+"update/";
     public static final String URL_LOGOUT = URL+"/logout/";

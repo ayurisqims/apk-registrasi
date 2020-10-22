@@ -33,6 +33,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -51,8 +52,6 @@ import java.io.IOException;
 import java.security.acl.Permission;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -60,7 +59,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.Response;
+
 
 public class Upload extends AppCompatActivity {
 
@@ -72,35 +71,27 @@ public class Upload extends AppCompatActivity {
 
     private int PICK_ZIP_REQUEST = 1;
 
-    TextView NameFile;
-    Button Select, Upload;
-
-    SharedPreferences preferences;
-    Uri filePath = null;
-    Intent myFileIntent;
-
+    SharedPreferences userPref;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        preferences = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
+        userPref = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
 
         Button selectFile = findViewById(R.id.btnSelect);
         selectFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (Build.VERSION.SDK_INT>=23) {
-//                    if(checkPermission()) {
-////                        filePicker();
-//                    } else {
-//                        requestPermission();
-//                    }
-//                } else {
-//                    filePicker();
-//                }
+                if (Build.VERSION.SDK_INT>=23) {
+                    if(checkPermission()) {
+                        showFileChooser();
+                    } else {
+                        requestPermission();
+                    }
+                }
             }
         });
 
@@ -108,11 +99,7 @@ public class Upload extends AppCompatActivity {
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(filePath!=null){
-//                    fileUpload();
-//                } else {
-//                    Toast.makeText(Upload.this, "Tolong harap di isi", Toast.LENGTH_SHORT).show();
-//                }
+//                upload_jawaban();
             }
         });
 
@@ -142,139 +129,89 @@ public class Upload extends AppCompatActivity {
         });
     }
 
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(Upload.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //method to show file chooser
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("file/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select File ZIP/RAR"), PICK_ZIP_REQUEST);
+    }
+
     //  Membuat Method Perizinan
-//    private void requestPermission() {
-//        if (ActivityCompat.shouldShowRequestPermissionRationale(Upload.this, Manifest.permission.READ_EXTERNAL_STORAGE))
-//        {
-//            Toast.makeText(Upload.this, "Berikan perizinan", Toast.LENGTH_SHORT).show();
-//        } else {
-//            ActivityCompat.requestPermissions(Upload.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-//        }
-//    }
 
-//    private boolean checkPermission() {
-//        int result = ContextCompat.checkSelfPermission(Upload.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-//        if (result == PackageManager.PERMISSION_GRANTED) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(Upload.this, Manifest.permission.READ_EXTERNAL_STORAGE))
+        {
+            Toast.makeText(Upload.this, "Berikan perizinan", Toast.LENGTH_SHORT).show();
+            Log.i("Upload", "requestPermission: ");
+        } else {
+            ActivityCompat.requestPermissions(Upload.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
+    }
 
-//    @Override
-//    public void onRequestPermissionsResult
-//            (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case PERMISSION_REQUEST_CODE:
-//                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-//                    Toast.makeText(Upload.this, "Perizinan Sukses", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        TextView fileName = findViewById(R.id.txtFile);
+
+        if(resultCode== Activity.RESULT_OK){
+            String filePath = getRealPathUri(data.getData(), Upload.this);
+
+            File file = new File(filePath);
+            fileName.setText(file.getName());
+            Log.i("Upload", "onActivityResult: "+fileName);
+        }
+    }
+
+    public String getRealPathUri(Uri uri, Activity activity){
+        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
+        if(cursor==null){
+            return uri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int id=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(id);
+        }
+    }
+
+    //    Upload File
+
+//    private void upload_jawaban() {
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_UPLOAD, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//
+//            }
+//        } {
+//
+//            @Override
+//            public void onRespone (String response){
+//                String s = response.trim();
+//                if (!s.equalsIgnoreCase("Halo")) {
+//                    Toast.makeText(Upload.this, "", Toast.LENGTH_SHORT).show();
 //                } else {
-//                    Toast.makeText(Upload.this, "Perizinan Gagal", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Upload.this, "", Toast.LENGTH_SHORT).show();
 //                }
-//        }
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        TextView fileName = findViewById(R.id.txtFile);
-//
-//        if(resultCode== Activity.RESULT_OK){
-//            String filePath = getRealPathUri(data.getData(), Upload.this);
-//            Log.d("File path : ", " " + filePath);
-//
-//            this.filePath=filePath;
-//
-//            File file = new File(filePath);
-//            fileName.setText(file.getName());
-//        }
-//
-//    }
-
-
-    //    Membuat Method Upload File
-//    private void fileUpload() {
-//        UploadTask uploadTask = new UploadTask();
-//        uploadTask.execute(new String[]{filePath});
-//    }
-
-//    private void filePicker() {
-//
-//        Toast.makeText(Upload.this, "File Dipilih", Toast.LENGTH_SHORT).show();
-//        myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//        myFileIntent.setType("*/*");
-//        startActivityForResult(myFileIntent, 10);
-//
-//    }
-
-//    public String getRealPathUri(Uri uri, Activity activity){
-//        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
-//        if(cursor==null){
-//            return uri.getPath();
-//        } else {
-//            cursor.moveToFirst();
-//            int id=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-//            return cursor.getString(id);
-//        }
-//    }
-
-//    private class UploadTask extends AsyncTask<String, String, String>{
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String o) {
-//            super.onPostExecute(o);
-//            if (o.equalsIgnoreCase("true")){
-//                Toast.makeText(Upload.this, "File upload", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(Upload.this, "Gagal Upload File", Toast.LENGTH_SHORT).show();
 //            }
-//        }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
 //
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            if(uploadFiles(strings[0])){
-//                return "true";
-//            } else {
-//                return "failed";
 //            }
-//        }
+//        } {
 //
-//        private boolean uploadFiles(String path ){
-//            File file = new File(path);
-//            try {
-//                RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-//                        .addFormDataPart("Files", file.getName(), RequestBody.create(MediaType.parse("image/*"),file))
-//                        .addFormDataPart("some_key", "some_value")
-//                        .addFormDataPart("submit", "submit")
-//                        .build();
-//
-//                okhttp3.Request request = new okhttp3.Request.Builder().url("http://192.168.43.209:80/api/upload").post(requestBody).build();
-//
-//                OkHttpClient client = new OkHttpClient();
-//                client.newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//
-//                    }
-//                });
-//                return true;
-//            } catch (Exception e){
-//                e.printStackTrace();
-//                return false;
-//            }
-//        }
+//        });
 //    }
+
 
     //    Membuat method logout
     private void logout() {
@@ -283,7 +220,7 @@ public class Upload extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
-                    SharedPreferences.Editor editor = preferences.edit();
+                    SharedPreferences.Editor editor = userPref.edit();
                     editor.clear();
                     editor.apply();
                     startActivity(new Intent(Upload.this, MainActivity.class));
@@ -297,7 +234,7 @@ public class Upload extends AppCompatActivity {
         }) {
 
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = preferences.getString("token", "");
+                String token = userPref.getString("token", "");
                 HashMap<String, String> map = new HashMap<>();
                 map.put("Authorization", "Bearer" +token);
                 return map;
@@ -342,101 +279,5 @@ public class Upload extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
-//    public void uploadMultipart() {
-//
-//
-//        //getting name for the image
-//        String name = NameFile.getText().toString().trim();
-//
-//        //getting the actual path of the image
-//        String path = FilePath.getPath(this, filePath);
-//
-//        if (path == null) {
-//
-//            Toast.makeText(this, "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
-//        } else {
-//            //Uploading code
-//            try {
-//                String uploadId = UUID.randomUUID().toString();
-//
-//                //Creating a multi part request
-//                new MultipartUploadRequest(this, uploadId, URL_UPLOAD)
-//                        .addFileToUpload(path, "pdf") //Adding file
-//                        .addParameter("name", name) //Adding text parameter to the request
-//                        .setNotificationConfig(new UploadNotificationConfig())
-//                        .setMaxRetries(2)
-//                        .startUpload(); //Starting the upload
-//
-//            } catch (Exception exc) {
-//                Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-
-
-    //method to show file chooser
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("application/zip");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select File ZIP"), PICK_ZIP_REQUEST);
-    }
-
-    //handling the image chooser activity result
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_ZIP_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-        }
-    }
-
-
-    //Requesting permission
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            return;
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
-        }
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-    }
-
-
-    //This method will be called when the user will tap on allow or deny
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        //Checking the request code of our request
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-            } else {
-                //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-
-//    @Override
-//    public void onClick(View v) {
-//        if (v == Select) {
-//            showFileChooser();
-//        }
-//        if (v == Upload) {
-////            uploadMultipart();
-//        }
-//    }
-
 
 }

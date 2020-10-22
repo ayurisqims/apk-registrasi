@@ -33,13 +33,12 @@ import static com.example.apk_registrasi.R.layout.edit_data_anggota;
 public class Edit_data_anggota extends AppCompatActivity {
 
 
-    private  int position=0, id_anggota=0;
+    private  int position=0, id_anggota;
     private EditText Nama, Nim, NoHp, Email, Sosmed, Alamat, JenisKelamin, Keahlian;
 
     SharedPreferences userPref;
     RequestQueue requestQueue;
 
-    String jenisKelamin, keahlian;
     CheckBox UI, Web, Frontend, AndroidDev, Database;
 
     @Override
@@ -97,7 +96,6 @@ public class Edit_data_anggota extends AppCompatActivity {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
                     Log.i("simpan_data_anggota", "Update Berhasil ");
-
                     Toast.makeText(Edit_data_anggota.this, "Update Berhasil",
                             Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Edit_data_anggota.this, Data_anggota.class);

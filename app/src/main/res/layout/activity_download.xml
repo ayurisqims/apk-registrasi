@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/rl_download"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/kode"
     tools:context=".Download">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="380dp"
-                android:layout_height="365dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="358dp"
-                    android:layout_height="355dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/putih"
-                    android:orientation="vertical">
-
                     <TextView
-                        android:id="@+id/txtWebProgramming"
+                        android:id="@+id/txtSoal"
                         style="@style/styleEditText"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
@@ -35,20 +29,8 @@
                         android:padding="20dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="15dp"
-                        android:text="1. Web Programming.pdf"
                         android:textColor="@color/Hitam"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                        android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/button_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-3dp"
-        android:background="@color/putih"
-        app:menu="@menu/buttom_nav_menu" />
 
 </RelativeLayout>

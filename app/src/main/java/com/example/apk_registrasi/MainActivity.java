@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (validate()) {
                     Login();
-                    Log.i("login", "onClick: ");
                 }
             }
         });
@@ -136,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
     private void Login() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_LOGIN, response -> {
-            Log.i("login", "Login: ");
 
             try {
                 JSONObject object = new JSONObject(response);
@@ -151,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 //                   Deklarasi edit preferences dan mengubah data
                     SharedPreferences.Editor editor = userPref.edit();
 
-//                   Mengambil data putString(database) dan menampilkan data getString
+//                   Memasukkan data putString(database) dan mengambil data getString
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
                     editor.putInt("id_kelompok", kelompok.getInt("id"));
@@ -167,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("nama_ketua", kelompok.getString("nama_ketua"));
 
                     editor.apply();
-                    Log.i("login", "Login: putString");
 
                     Toast.makeText(MainActivity.this, "Login Berhasil ",
                             Toast.LENGTH_SHORT).show();
@@ -183,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             }, error -> Toast.makeText(MainActivity.this, "Error" +error.toString(),
                 Toast.LENGTH_SHORT).show()) {
 
-//            Mengambil nilai parameter yang dikirim dari client ke server
+//          PUT menambahkan data ke database
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -195,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        Log.i("login", "Login: RequestQueue");
 
     }
 }

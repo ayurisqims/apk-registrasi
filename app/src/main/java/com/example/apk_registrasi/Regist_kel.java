@@ -137,8 +137,7 @@ public class Regist_kel extends AppCompatActivity {
 //                i.putExtras(bundleKel);
 //
                 Kelompok = spinnerKel.getSelectedItem().toString();
-
-
+                String txtKelompok = spinnerKel.getSelectedItem().toString();
             }
 
             @Override
@@ -194,10 +193,9 @@ public class Regist_kel extends AppCompatActivity {
                             ("user", Regist_kel.MODE_PRIVATE);
                     SharedPreferences.Editor editor = userPref.edit();
 
-//                  Memasukkan nilai pada editor shared preferences (putString(database)) dan menampilkan data getString
+//                  Menambahkan nilai pada editor shared preferences (putString(database)) dan mengambil data getString
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
-
                     editor.apply();
 
                 } else {
@@ -225,7 +223,7 @@ public class Regist_kel extends AppCompatActivity {
                 params.put("nama_ketua", NamaKetua.getText().toString().trim());
                 params.put("email", Email.getText().toString().trim());
                 params.put("password", Password.getText().toString().trim());
-                Log.i("Regist_kel", "getParams: "+params);
+                Log.i("Regist_kel", "getParams: 8 "+params);
 
                 return params;
             }
@@ -240,6 +238,7 @@ public class Regist_kel extends AppCompatActivity {
             // Volley
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
+
         } catch (Exception e){
             Toast.makeText(Regist_kel.this, "Registrasi Gagal!", Toast.LENGTH_SHORT).show();
         }

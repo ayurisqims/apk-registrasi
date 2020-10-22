@@ -1,83 +1,77 @@
 package com.example.apk_registrasi;
 
-import android.Manifest;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.strictmode.DiskWriteViolation;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.apk_registrasi.Models.Soal;
 import com.example.apk_registrasi.Utils.Constant;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import retrofit2.http.Url;
 
 public class Download extends AppCompatActivity {
 
 
     private static final int PERMISSION_STORAGE_CODE = 1000;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView rvSoal;
+    List<Soal> Soal_item;
 
-    SharedPreferences preferences;
+
+    SharedPreferences userPref;
+    RequestQueue requestQueue;
+    TextView Soal;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download);
+        setContentView(R.layout.activity_recycler_view2);
 
-        preferences = getApplicationContext().getSharedPreferences("user", Context. MODE_PRIVATE);
+        userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        TextView webProgram = findViewById(R.id.txtWebProgramming);
-        webProgram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED) {
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
-                        
-                    } else {
-                        webProgramming();
-                    }
-                } else {
-                    webProgramming();
-                }
+        Soal_item = new ArrayList<>();
+        rvSoal = findViewById(R.id.recycler_view_soal);
 
-            }
-        });
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(Download.this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvSoal.setLayoutManager(layoutManager);
+        rvSoal.setHasFixedSize(true);
+
+        adapter = new MySoalAdapter(Download.this, (ArrayList<Soal>)Soal_item);
+        rvSoal.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        tampil_data();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_nav);
         bottomNavigationView.setSelectedItemId(R.id.navigation_download);
@@ -103,110 +97,62 @@ public class Download extends AppCompatActivity {
         });
     }
 
-    //Mendownload file melalui ip yang ada
-    private void webProgramming() {
+    private void tampil_data() {
 
-        String link = "http://192.168.43.248/data_soal/Web%20Programming.pdf";
-        Uri uri = Uri.parse(link);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE)
-                .setTitle("WebProgramming")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_DOWNLOAD, response -> {
 
-        try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"WebProgramming.pdf");
+            try {
 
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
-        } catch(Exception e) {
-            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
-        }
-    }
+                JSONObject object = new JSONObject(response);
+                JSONArray jsonArray = object.getJSONArray("soal");
 
-    private void ui() {
-        String link = "http://192.168.43.248/data_soal/UX.pdf";
-        Uri uri = Uri.parse(link);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("UI/UX");
+                for (int i = 0; i < jsonArray.length(); i++){
 
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                 JSONObject data = jsonArray.getJSONObject(i);
 
-        try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"UI/UX.pdf");
+                 String id = data.getString("id");
+                 String item = data.getString("item");
 
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
-        } catch(Exception e) {
-            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
-        }
-    }
+                    Soal soal = new Soal(id, item);
+                    Soal_item.add(soal);
+                }
+                adapter = new MySoalAdapter(Download.this, (ArrayList<Soal>) Soal_item);
+                rvSoal.setAdapter(adapter);
 
-    private void frontend() {
-        String link = "http://192.168.43.248data_soal/UX.pdf";
-        Uri uri = Uri.parse(link);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("Frontend");
+            } catch (Exception e){
+                e.printStackTrace();
 
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Download.this, "Gagal", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = userPref.getString("token", "");
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer" +token);
+                Log.i("Download", "getHeaders: ");
 
-        try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Frontend.pdf");
+                return params;
+            }
 
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
-        } catch(Exception e) {
-            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
-        }
-    }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
 
-    private void database() {
-        String link = "http://192.168.43.248/data_soal/UX.pdf";
-        Uri uri = Uri.parse(link);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("Database");
+                params.put("item", Soal.getText().toString());
 
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                Log.i("Download", "getParams: "+params);
+                return params;
+            }
+        };
 
-        try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Database.pdf");
-
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
-        } catch(Exception e) {
-            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void webDev() {
-        String link = "http://192.168.43.248/data_soal/UX.pdf";
-        Uri uri = Uri.parse(link);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
-                DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("Web Developer");
-
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-        try{
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Web Developer.pdf");
-
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-            Toast.makeText(this, "Download Berhasil!", Toast.LENGTH_SHORT).show();
-        } catch(Exception e) {
-            Toast.makeText(this, "Download Gagal", Toast.LENGTH_SHORT).show();
-        }
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
 
@@ -217,15 +163,13 @@ public class Download extends AppCompatActivity {
         switch (requestCode){
             case PERMISSION_STORAGE_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    webProgramming();
+                    tampil_data();
                 }
                 else {
                     Toast.makeText(this, "Permintaan Ditolak ", Toast.LENGTH_SHORT).show();
                 }
             }
         }
-
-
     }
 
 
@@ -237,7 +181,7 @@ public class Download extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
-                    SharedPreferences.Editor editor = preferences.edit();
+                    SharedPreferences.Editor editor = userPref.edit();
                     editor.clear();
                     editor.apply();
                     startActivity(new Intent(Download.this, MainActivity.class));
@@ -251,7 +195,7 @@ public class Download extends AppCompatActivity {
         }) {
 
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = preferences.getString("token", "");
+                String token = userPref.getString("token", "");
                 HashMap<String, String> map = new HashMap<>();
                 map.put("Authorization", "Bearer" +token);
                 return map;
