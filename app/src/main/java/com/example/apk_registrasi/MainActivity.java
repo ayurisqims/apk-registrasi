@@ -153,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("token", object.getString("token"));
                     editor.putString("email", user.getString("email"));
                     editor.putInt("id_kelompok", kelompok.getInt("id"));
-//                    editor.putInt("id", data.getInt("id"));
                     editor.putString("universitas", kelompok.getString("universitas"));
                     editor.putString("fakultas", kelompok.getString("fakultas"));
                     editor.putString("prodi", kelompok.getString("prodi"));

@@ -1,7 +1,7 @@
 package com.example.apk_registrasi.Utils;
 
 public class Constant {
-    public static final String URL = "http://192.168.100.174:80/api";
+    public static final String URL = "http://192.168.1.12:80/api";
     public static final String URL_LOGIN = URL+"/login/";
     public static final String URL_REGIST_KELOMPOK = URL+"/register/";
     public static final String URL_REGIST_ANGGOTA = URL+"/registerAnggota/";

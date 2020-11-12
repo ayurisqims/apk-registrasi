@@ -53,12 +53,7 @@ import java.security.acl.Permission;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
+
 
 
 public class Upload extends AppCompatActivity {
@@ -87,10 +82,12 @@ public class Upload extends AppCompatActivity {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT>=23) {
                     if(checkPermission()) {
-                        showFileChooser();
+                        fileChooser();
                     } else {
-                        requestPermission();
+//                        requestPermission();
                     }
+                } else {
+//                    showFileChooser();
                 }
             }
         });
@@ -139,11 +136,12 @@ public class Upload extends AppCompatActivity {
     }
 
     //method to show file chooser
-    private void showFileChooser() {
+    private void fileChooser() {
         Intent intent = new Intent();
-        intent.setType("file/*");
+        intent.setType("*/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File ZIP/RAR"), PICK_ZIP_REQUEST);
+        Log.i("upload", "showFileChooser: ");
     }
 
     //  Membuat Method Perizinan
@@ -178,8 +176,10 @@ public class Upload extends AppCompatActivity {
             return uri.getPath();
         } else {
             cursor.moveToFirst();
-            int id=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(id);
+//            int id=cursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE);
+            int aa=cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
+//            int id=cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(aa);
         }
     }
 
@@ -279,5 +279,8 @@ public class Upload extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+
+//    update belum bisa hm
 
 }

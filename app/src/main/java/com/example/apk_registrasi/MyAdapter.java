@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -44,22 +45,19 @@ import javax.security.auth.login.LoginException;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context mcontext;
-    int position = 0, id;
     ArrayList<Anggota> Anggota_item;
 
-    SharedPreferences userPref;
-    RequestQueue requestQueue;
 
 
     public MyAdapter(Context context, ArrayList<Anggota> item_anggota) {
         this.mcontext = context;
         this.Anggota_item = item_anggota;
-        userPref = mcontext.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         /*
-            Setiap view holder menampung satu rangkaian data.
+            Setiap vie w holder menampung satu rangkaian data.
             View holder berisi tampilan informasi untuk menampilkan satu item dari layout item.
         */
         String id;
@@ -164,68 +162,70 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.Hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hapus_anggota();
+//                hapus_anggota();
+
+                Toast.makeText(mcontext, "Hapus berhasil", Toast.LENGTH_SHORT).show();
             }});
     }
 
-    private void hapus_anggota() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
-        builder.setTitle("Hapus Data Anggota");
-        builder.setMessage("Hapus Data");
-        builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
-
-                    try{
-                        JSONObject object = new JSONObject(response);
-                        if (object.getBoolean("success")){
-                            Anggota_item.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemChanged(position);
-                            notifyDataSetChanged();
-                            Intent intent = new Intent(mcontext, Data_anggota.class);
-                            intent.setType(Settings.ACTION_SYNC_SETTINGS);
-                            mcontext.startActivity(intent);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }, error -> {
-
-                }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        String token = userPref.getString("token", "");
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("Authorization", "Bearer"+token);
-                        return params;
-                    }
-
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> params = new HashMap<>();
-                        params.put("id", id+"");
-                        Log.i("MyAdapter","onClick: "+params);
-                        return params;
-                    }
-                };
-
-                requestQueue = Volley.newRequestQueue(mcontext);
-                requestQueue.add(stringRequest);
-            }
-        });
-        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.show();
-    }
+//    private void hapus_anggota() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
+//        builder.setTitle("Hapus Data Anggota");
+//        builder.setMessage("Hapus Data");
+//        builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
+//
+//                    try{
+//                        JSONObject object = new JSONObject(response);
+//                        if (object.getBoolean("success")){
+//                            Anggota_item.remove(position);
+//                            notifyItemRemoved(position);
+//                            notifyItemChanged(position);
+//                            notifyDataSetChanged();
+//                            Intent intent = new Intent(mcontext, Data_anggota.class);
+//                            intent.setType(Settings.ACTION_SYNC_SETTINGS);
+//                            mcontext.startActivity(intent);
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }, error -> {
+//
+//                }){
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        String token = userPref.getString("token", "");
+//                        HashMap<String,String> params = new HashMap<>();
+//                        params.put("Authorization", "Bearer"+token);
+//                        return params;
+//                    }
+//
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        HashMap<String,String> params = new HashMap<>();
+//                        params.put("id", id+"");
+//                        Log.i("MyAdapter","onClick: "+params);
+//                        return params;
+//                    }
+//                };
+//
+//                requestQueue = Volley.newRequestQueue(mcontext);
+//                requestQueue.add(stringRequest);
+//            }
+//        });
+//        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//        builder.show();
+//    }
 
     @Override
 //  Berfungsi untuk mengembalikan jumlah data yang ingin ditampilkan pada RecyclerView

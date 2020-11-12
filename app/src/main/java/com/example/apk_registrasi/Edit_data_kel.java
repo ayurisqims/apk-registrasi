@@ -96,7 +96,6 @@ public class Edit_data_kel extends AppCompatActivity {
 
     private void simpan_data_kelompok() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_UPDATE_DATA_KELOMPOK, response -> {
-        Log.i("autolog", "function simpan berjalan");
 
             try{
                 JSONObject object = new JSONObject(response);
@@ -142,7 +141,7 @@ public class Edit_data_kel extends AppCompatActivity {
                 return params;
             }
         };
-
+        
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

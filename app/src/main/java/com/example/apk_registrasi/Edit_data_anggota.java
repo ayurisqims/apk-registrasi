@@ -33,11 +33,11 @@ import static com.example.apk_registrasi.R.layout.edit_data_anggota;
 public class Edit_data_anggota extends AppCompatActivity {
 
 
-    private  int position=0, id_anggota;
+    private  int position=0, id_anggota=0;
     private EditText Nama, Nim, NoHp, Email, Sosmed, Alamat, JenisKelamin, Keahlian;
+    String id;
 
     SharedPreferences userPref;
-    RequestQueue requestQueue;
 
     CheckBox UI, Web, Frontend, AndroidDev, Database;
 
@@ -58,8 +58,8 @@ public class Edit_data_anggota extends AppCompatActivity {
         Email       = findViewById(R.id.editEmail);
         Alamat      = findViewById(R.id.editAlamat);
         Sosmed      = findViewById(R.id.editSosmed);
-        JenisKelamin = findViewById(R.id.spinner);
-        Keahlian     = findViewById(R.id.spinnerKeahlian);
+        JenisKelamin = findViewById(R.id.editJenis);
+        Keahlian     = findViewById(R.id.editKeahlian);
         UI          = findViewById(R.id.cbUI);
         Web         = findViewById(R.id.cbWeb); 
         Frontend    = findViewById(R.id.cbFrontend);
@@ -67,7 +67,8 @@ public class Edit_data_anggota extends AppCompatActivity {
         AndroidDev  = findViewById(R.id.cbAndroid);
 
         position    = getIntent().getIntExtra("position", 0);
-        id_anggota  = getIntent().getIntExtra("id", 0);
+//        id_anggota  = getIntent().getIntExtra("id", 0);
+        id = getIntent().getStringExtra("id");
         Nama.setText(getIntent().getStringExtra("nama"));
         Nim.setText(getIntent().getStringExtra("nim"));
         JenisKelamin.setText(getIntent().getStringExtra("jenis_kelamin"));
@@ -82,45 +83,46 @@ public class Edit_data_anggota extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simpan_data_anggota();
+                simpan_data();
+//                simpan_data_anggota();
+
             }
         });
 
     }
 
-    private void simpan_data_anggota() {
+    private void simpan_data() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_UPDATE_DATA_ANGGOTA, response -> {
-            Log.i("Edit_data_anggota", "simpan_data_anggota");
 
             try {
                 JSONObject object = new JSONObject(response);
-                if (object.getBoolean("success")) {
-                    Log.i("simpan_data_anggota", "Update Berhasil ");
-                    Toast.makeText(Edit_data_anggota.this, "Update Berhasil",
+                if(object.getBoolean("success")) {
+
+                    Toast.makeText(Edit_data_anggota.this, "Update Berhasil ",
                             Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Edit_data_anggota.this, Data_anggota.class);
                     startActivity(intent);
-                } else if(!object.getBoolean("success")){
-                    Toast.makeText(Edit_data_anggota.this, "Update Gagal",
-                            Toast.LENGTH_SHORT).show();
+                } else if(!object.getBoolean("success")) {
+                    Toast.makeText(Edit_data_anggota.this, "Update Gagal", Toast.LENGTH_SHORT).show();
                 }
+
             } catch (Exception e) {
 
             }
-        }, error -> {}) {
+        }, error -> {}){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String token = userPref.getString("token", "");
                 HashMap<String, String> params = new HashMap<>();
                 params.put("Authorization", "Bearer" +token);
-                Log.i("Edit_data_anggota", "getHeaders: ");
+
                 return params;
             }
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("id", id_anggota+"");
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id +"");
                 params.put("nama", Nama.getText().toString());
                 params.put("nim", Nim.getText().toString());
                 params.put("jenis_kelamin", JenisKelamin.getText().toString());
@@ -130,13 +132,13 @@ public class Edit_data_anggota extends AppCompatActivity {
                 params.put("alamat", Alamat.getText().toString());
                 params.put("keahlian", Keahlian.getText().toString());
                 Log.i("Edit_data_anggota", "getParams: "+params);
-
                 return params;
             }
         };
 
-        requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        Log.i("Edit_data_anggota", "simpan_data: ");
     }
 
     public void batalEdit(View view) {
