@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,11 +32,13 @@ import java.util.Map;
 
 public class Regist_anggota extends AppCompatActivity {
 
+    ArrayList<String> selection = new ArrayList<String>();
 
     EditText Nama, NIM, NO, Email, Sosmed, Alamat;
     Spinner JenisKelamin, Keahlian;
     SharedPreferences userPref;
     String jenis_kelamin, keahlian;
+//    String bidang_minat[];
     CheckBox UI, Web, Frontend, AndroidDev, Database;
 
     @Override
@@ -98,6 +101,45 @@ public class Regist_anggota extends AppCompatActivity {
 
     }
 
+
+    public void selectItem(View view)
+    {
+        boolean checked = ((CheckBox) view).isChecked();
+        switch (view.getId())
+        {
+            case R.id.cbUI:
+                if(checked)
+                {selection.add("UI / U X");}
+                else
+                {selection.remove("UI / UX");}
+                break;
+            case R.id.cbWeb:
+                if(checked)
+                {selection.add("Web Programing");}
+                else
+                {selection.remove("Web Programing");}
+                break;
+            case R.id.cbFrontend:
+                if(checked)
+                {selection.add("Frontend");}
+                else
+                {selection.remove("Frontend");}
+                break;
+            case R.id.cbDatabase:
+                if(checked)
+                {selection.add("Database");}
+                else
+                {selection.remove("Database");}
+                break;
+            case R.id.cbAndroid:
+                if(checked)
+                {selection.add("Android Developer");}
+                else
+                {selection.remove("Android Developer");}
+                break;
+        }
+    }
+
     private void initRegister() {
 
         userPref    = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -110,10 +152,12 @@ public class Regist_anggota extends AppCompatActivity {
         JenisKelamin = findViewById(R.id.spinner);
         Keahlian    = findViewById(R.id.spinnerKeahlian);
         UI          = findViewById(R.id.cbUI);
+
         Web         = findViewById(R.id.cbWeb);
         Frontend    = findViewById(R.id.cbFrontend);
         Database    = findViewById(R.id.cbDatabase);
         AndroidDev  = findViewById(R.id.cbAndroid);
+
 
         Button simpan = findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +165,6 @@ public class Regist_anggota extends AppCompatActivity {
             public void onClick(View v) {
                 if (validate()){
                     registrasi();
-
                 }
             }
         });
@@ -157,7 +200,15 @@ public class Regist_anggota extends AppCompatActivity {
 
     private void registrasi() {
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_ANGGOTA, response -> {
+        String final_checkbox = "";
+        for(String Selections : selection)
+        {
+            final_checkbox = final_checkbox  + Selections + ",";
+        }
+        String final_cb = final_checkbox;
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_REGIST_ANGGOTA, response -> {
 
                 try {
                     JSONObject object = new JSONObject(response);
@@ -181,9 +232,9 @@ public class Regist_anggota extends AppCompatActivity {
                     String token = userPref.getString("token", "");
                     HashMap<String, String> params = new HashMap<>();
                     params.put("Authorization", "Bearer" +token);
-
                     return params;
                 }
+
 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
@@ -197,7 +248,7 @@ public class Regist_anggota extends AppCompatActivity {
                     params.put("keahlian", keahlian);
                     params.put("email_anggota", Email.getText().toString());
                     params.put("alamat", Alamat.getText().toString());
-
+                    params.put("bidang_minat", final_cb);
                     return params;
                 }
             };

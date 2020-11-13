@@ -61,13 +61,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             View holder berisi tampilan informasi untuk menampilkan satu item dari layout item.
         */
         String id;
-        TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian;
+        TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
         Button Edit, Hapus;
+
         public RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View ItemView) {
 
             super(ItemView);
+
 
             Nama = ItemView.findViewById(R.id.txtJwbNama);
             Nim = ItemView.findViewById(R.id.txtJwbNIM);
@@ -77,7 +79,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             Sosmed = ItemView.findViewById(R.id.txtJwbSosmed);
             Alamat = ItemView.findViewById(R.id.txtJwbAlamat);
             Keahlian = ItemView.findViewById(R.id.txtJwbKeahlian);
-            //bidangMinat = ItemView.findViewById(R.id.txtJwbBidangMinat);
+            BidangMinat = ItemView.findViewById(R.id.txtJwbBidangMinat);
             relativeLayout = ItemView.findViewById(R.id.rl);
             Edit = ItemView.findViewById(R.id.btnEdit);
             Hapus = ItemView.findViewById(R.id.btnHapusAnggota);
@@ -119,7 +121,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.Sosmed.setText(list.getSosmed());
         holder.Alamat.setText(list.getAlamat());
         holder.Keahlian.setText(list.getKeahlian());
-        Log.i("MyAdapter", "Intent "+holder);
+        holder.BidangMinat.setText(list.getBidang_minat());
+        Log.i("MyAdapter", "Holder : "+list.getBidang_minat());
 
         //holder.BidangMinat.setText(list.getBidang_minat());
 
@@ -154,21 +157,68 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             intent.putExtra("sosmed", list.getSosmed());
             intent.putExtra("alamat", list.getAlamat());
             intent.putExtra("keahlian", list.getKeahlian());
-//          intent.putExtra("bidang_minat", bidang_minat);
-            Log.i("MyAdapter", "onClick: intent edit ");
+            intent.putExtra("bidang_minat", list.getBidang_minat());
+            Log.i("MyAdapter", "onClick: intent edit "+ list.getId());
             mcontext.startActivity(intent);
         }});
 
         holder.Hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                hapus_anggota();
+                Intent intent = new Intent(mcontext, Edit_data_anggota.class);
+                mcontext.startActivity(intent);
+//                SharedPreferences userPref = mcontext.getSharedPreferences("pref", Context.MODE_PRIVATE);
 
-                Toast.makeText(mcontext, "Hapus berhasil", Toast.LENGTH_SHORT).show();
-            }});
+//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
+//
+//                        try{
+//                            JSONObject object = new JSONObject(response);
+//                            if (object.getBoolean("success")){
+//
+//                                Anggota_item.remove(position);
+//                                notifyItemRemoved(position);
+//                                notifyItemChanged(position);
+//                                notifyDataSetChanged();
+//                                Intent intent = new Intent(mcontext, Data_anggota.class);
+//                                intent.setType(Settings.ACTION_SYNC_SETTINGS);
+//                                mcontext.startActivity(intent);
+//                                Log.i("MyAdpter", "onClick: ");
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }, error -> {
+//
+//                    }){
+//                        @Override
+//                        public Map<String, String> getHeaders() throws AuthFailureError {
+//                            String token = userPref.getString("token", "");
+//                            HashMap<String,String> params = new HashMap<>();
+//                            params.put("Authorization", "Bearer"+token);
+//                            return params;
+//                        }
+//
+//                        @Override
+//                        protected Map<String, String> getParams() throws AuthFailureError {
+//                            HashMap<String,String> params = new HashMap<>();
+//                            params.put("id", list.getId());
+//                            Log.i("MyAdapter","onClick: "+params);
+//                            return params;
+//                        }
+//                    };
+//
+//                RequestQueue requestQueue = Volley.newRequestQueue(mcontext);
+//                requestQueue.add(stringRequest);
+
+                }
+            });
+
     }
 
 //    private void hapus_anggota() {
+//
 //        AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
 //        builder.setTitle("Hapus Data Anggota");
 //        builder.setMessage("Hapus Data");
@@ -181,6 +231,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //                    try{
 //                        JSONObject object = new JSONObject(response);
 //                        if (object.getBoolean("success")){
+//
 //                            Anggota_item.remove(position);
 //                            notifyItemRemoved(position);
 //                            notifyItemChanged(position);

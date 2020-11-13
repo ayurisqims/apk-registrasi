@@ -77,7 +77,7 @@ public class Edit_data_anggota extends AppCompatActivity {
         Sosmed.setText(getIntent().getStringExtra("sosmed"));
         Alamat.setText(getIntent().getStringExtra("alamat"));
         Keahlian.setText(getIntent().getStringExtra("keahlian"));
-        Log.i("Edit_data_anggota", "init: ");
+        Log.i("Edit_data_anggota", "init: "+id);
 
         Button simpan = findViewById(R.id.btnSimpan);
         simpan.setOnClickListener(new View.OnClickListener() {

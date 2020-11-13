@@ -5,15 +5,11 @@ import android.widget.TextView;
 public class Anggota {
 
     String id;
-    String nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian;
+    String nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian, bidang_minat;
 
-    public Anggota(String id) {
+    public Anggota(String id, String nama, String nim, String jenis_kelamin, String no_hp,
+                   String email_anggota, String sosmed, String alamat, String keahlian, String bidang_minat) {
         this.id = id;
-    }
-
-    public Anggota(String nama, String nim, String jenis_kelamin, String no_hp, String email_anggota, String sosmed, String alamat, String keahlian) {
-
-
         this.nama = nama;
         this.nim = nim;
         this.jenis_kelamin = jenis_kelamin;
@@ -22,6 +18,7 @@ public class Anggota {
         this.sosmed = sosmed;
         this.alamat = alamat;
         this.keahlian = keahlian;
+        this.bidang_minat = bidang_minat;
     }
 
     public String getId() {
@@ -95,12 +92,12 @@ public class Anggota {
     public void setKeahlian(String keahlian) {
         this.keahlian = keahlian;
     }
+
+    public String getBidang_minat() {
+        return bidang_minat;
+    }
+
+    public void setBidang_minat(String bidang_minat) {
+        this.bidang_minat = bidang_minat;
+    }
 }
-//    public String getBidang_minat() {
-//        return bidang_minat;
-//    }
-//
-//    public void setBidang_minat(String bidang_minat) {
-//        this.bidang_minat = bidang_minat;
-//    }
-//}

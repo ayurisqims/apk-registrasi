@@ -43,7 +43,7 @@ public class Data_anggota extends AppCompatActivity{
 
     SharedPreferences userPref1;
     RequestQueue requestQueue;
-    TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, BidangMinat;
+    TextView Nama, Nim, JenisKelamin, NoHp, Email, Sosmed, Alamat, Keahlian, Bidang_minat;
     Button Edit, Hapus;
 
 
@@ -88,7 +88,7 @@ public class Data_anggota extends AppCompatActivity{
         Sosmed             = findViewById(R.id.txtJwbSosmed);
         Alamat             = findViewById(R.id.txtJwbAlamat);
         Keahlian           = findViewById(R.id.txtJwbKeahlian);
-        BidangMinat        = findViewById(R.id.txtJwbBidangMinat);
+        Bidang_minat        = findViewById(R.id.txtJwbBidangMinat);
         Edit               = findViewById(R.id.btnEdit);
 
         ImageButton tambah = findViewById(R.id.btnTambah);
@@ -128,6 +128,7 @@ public class Data_anggota extends AppCompatActivity{
 
                     JSONObject data = jsonArray.getJSONObject(i);
 
+                    String id = data.getString("id");
                     String nama = data.getString("nama");
                     String nim= data.getString("nim");
                     String jenis_kelamin = data.getString("jenis_kelamin");
@@ -136,10 +137,11 @@ public class Data_anggota extends AppCompatActivity{
                     String sosmed = data.getString("sosmed");
                     String alamat = data.getString("alamat");
                     String keahlian = data.getString("keahlian");
-//                  String bidang_minat = data.getString("bidang_minat");
+                    String bidang_minat = data.getString("bidang_minat");
                     Log.i("string", "tampilData: "+nama);
 
-                    Anggota anggota = new Anggota(nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed, alamat, keahlian);
+                    Anggota anggota = new Anggota(id, nama, nim, jenis_kelamin, no_hp, email_anggota, sosmed,
+                            alamat, keahlian, bidang_minat);
                     Anggota_item.add(anggota);
                 }
                 adapter = new MyAdapter(Data_anggota.this, (ArrayList<Anggota>) Anggota_item);
@@ -177,7 +179,7 @@ public class Data_anggota extends AppCompatActivity{
                 params.put("keahlian", Keahlian.getText().toString());
                 params.put("email_anggota", Email.getText().toString());
                 params.put("alamat", Alamat.getText().toString());
-//              params.put("bidang_minat", BidangMinat.getText().toString());
+                params.put("bidang_minat", Bidang_minat.getText().toString());
                 Log.i("Data_anggota", "getParams: "+params);
                 return params;
             }
