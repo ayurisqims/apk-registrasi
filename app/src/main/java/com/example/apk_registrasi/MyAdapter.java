@@ -47,8 +47,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context mcontext;
     ArrayList<Anggota> Anggota_item;
 
-
-
     public MyAdapter(Context context, ArrayList<Anggota> item_anggota) {
         this.mcontext = context;
         this.Anggota_item = item_anggota;
@@ -69,7 +67,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder(@NonNull View ItemView) {
 
             super(ItemView);
-
 
             Nama = ItemView.findViewById(R.id.txtJwbNama);
             Nim = ItemView.findViewById(R.id.txtJwbNIM);
@@ -124,24 +121,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.BidangMinat.setText(list.getBidang_minat());
         Log.i("MyAdapter", "Holder : "+list.getBidang_minat());
 
-        //holder.BidangMinat.setText(list.getBidang_minat());
-
-//        if (list.getNama().getId()==userPref.getInt("id", 0)){
-//            holder.Edit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//        bidangminat = "";
-//        if(btnAndroid.isChecked()) {
-//            bidangminat = bidangminat+",android";
-//        }
-//        if(btnWeb.isChecked()) {
-//            bidangminat = bidangminat+",web"
-//        }
-
-//                }
-//            });
-//        }
-
         holder.Edit.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -163,120 +142,69 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }});
 
         holder.Hapus.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mcontext, Edit_data_anggota.class);
-                mcontext.startActivity(intent);
-//                SharedPreferences userPref = mcontext.getSharedPreferences("pref", Context.MODE_PRIVATE);
 
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
-//
-//                        try{
-//                            JSONObject object = new JSONObject(response);
-//                            if (object.getBoolean("success")){
-//
-//                                Anggota_item.remove(position);
-//                                notifyItemRemoved(position);
-//                                notifyItemChanged(position);
-//                                notifyDataSetChanged();
-//                                Intent intent = new Intent(mcontext, Data_anggota.class);
-//                                intent.setType(Settings.ACTION_SYNC_SETTINGS);
-//                                mcontext.startActivity(intent);
-//                                Log.i("MyAdpter", "onClick: ");
-//                            }
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }, error -> {
-//
-//                    }){
-//                        @Override
-//                        public Map<String, String> getHeaders() throws AuthFailureError {
-//                            String token = userPref.getString("token", "");
-//                            HashMap<String,String> params = new HashMap<>();
-//                            params.put("Authorization", "Bearer"+token);
-//                            return params;
-//                        }
-//
-//                        @Override
-//                        protected Map<String, String> getParams() throws AuthFailureError {
-//                            HashMap<String,String> params = new HashMap<>();
-//                            params.put("id", list.getId());
-//                            Log.i("MyAdapter","onClick: "+params);
-//                            return params;
-//                        }
-//                    };
-//
-//                RequestQueue requestQueue = Volley.newRequestQueue(mcontext);
-//                requestQueue.add(stringRequest);
+                deletePost(list.getId(), position);
 
-                }
-            });
+            }
+        });
 
     }
 
-//    private void hapus_anggota() {
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
-//        builder.setTitle("Hapus Data Anggota");
-//        builder.setMessage("Hapus Data");
-//        builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
-//
-//                    try{
-//                        JSONObject object = new JSONObject(response);
-//                        if (object.getBoolean("success")){
-//
-//                            Anggota_item.remove(position);
-//                            notifyItemRemoved(position);
-//                            notifyItemChanged(position);
-//                            notifyDataSetChanged();
-//                            Intent intent = new Intent(mcontext, Data_anggota.class);
-//                            intent.setType(Settings.ACTION_SYNC_SETTINGS);
-//                            mcontext.startActivity(intent);
-//                        }
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }, error -> {
-//
-//                }){
-//                    @Override
-//                    public Map<String, String> getHeaders() throws AuthFailureError {
-//                        String token = userPref.getString("token", "");
-//                        HashMap<String,String> params = new HashMap<>();
-//                        params.put("Authorization", "Bearer"+token);
-//                        return params;
-//                    }
-//
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        HashMap<String,String> params = new HashMap<>();
-//                        params.put("id", id+"");
-//                        Log.i("MyAdapter","onClick: "+params);
-//                        return params;
-//                    }
-//                };
-//
-//                requestQueue = Volley.newRequestQueue(mcontext);
-//                requestQueue.add(stringRequest);
-//            }
-//        });
-//        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//        builder.show();
-//    }
+    private void deletePost(String id, int position) {
+
+        SharedPreferences userPref = mcontext.getSharedPreferences("user", Context.MODE_PRIVATE);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.URL_DELETE_ANGGOTA, response -> {
+
+            try{
+                JSONObject object = new JSONObject(response);
+                if (object.getBoolean("success")){
+
+                    Anggota_item.remove(position);
+                    notifyItemChanged(position);
+                    notifyDataSetChanged();
+//                                Intent intent = new Intent(mcontext, Data_anggota.class);
+//                                intent.setType(Settings.ACTION_SYNC_SETTINGS);
+//                                mcontext.startActivity(intent);
+                                Log.i("MyAdpter", "position");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }, error -> {
+
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = userPref.getString("token", "");
+                HashMap<String,String> params = new HashMap<>();
+                params.put("Authorization", "Bearer"+token);
+                Log.i("MyAdapter", "getHeader: ");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<>();
+                Anggota list = Anggota_item.get(position);
+                params.put("id", list.getId());
+                Log.i("MyAdapter","onClick: "+params);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mcontext);
+        requestQueue.add(stringRequest);
+        Log.i("MyAdapter", "Volley: ");
+
+    }
+
 
     @Override
 //  Berfungsi untuk mengembalikan jumlah data yang ingin ditampilkan pada RecyclerView

@@ -96,23 +96,7 @@ public class Data_anggota extends AppCompatActivity{
             Intent tambah1 = new Intent(Data_anggota.this, Regist_anggota.class);
             startActivity(tambah1);
         });
-//        Button edit = findViewById(R.id.btnEdit);
-//        edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////
-////                String nama = userPref.getString("nama", "");
-////                String nim = userPref.getString("nim", "");
-////                String jenis_kelamin = userPref.getString("jenis_kelamin", "");
-////                String no_hp = userPref.getString("no_hp", "");
-////                String email_anggota = userPref.getString("email_anggota", "");
-////                String sosmed = userPref.getString("sosmed", "");
-////                String alamat = userPref.getString("alamat", "");
-////                String keahlian = userPref.getString("keahlian", "");
-////                String bidang_minat = userPref.getString("bidang_minat", "");
-//
-//            }
-//        });
+
     }
 
     private void tampil_data() {
